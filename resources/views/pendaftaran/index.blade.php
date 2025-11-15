@@ -162,7 +162,7 @@
         </div>
 
         <div class="form-header">
-            <h1>Formulir Kedatangan Tamu</h1>
+            <h1>Formulir Pendaftaran Peserta</h1>
             <p>Silakan lengkapi data diri Anda dengan benar</p>
         </div>
 
