@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nip', 20)->unique();
+            $table->string('no_hp', 20)->unique();
             $table->string('pangkat');
             $table->string('jabatan');
             $table->string('satker');

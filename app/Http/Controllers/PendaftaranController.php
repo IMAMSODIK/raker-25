@@ -20,6 +20,7 @@ class PendaftaranController extends Controller
                 'nama'          => 'required|string|max:255',
                 'nip'           => 'required|digits_between:1,20|unique:pesertas,nip',
                 'pangkat'       => 'required|string',
+                'no_hp'         => 'required|digits_between:8,15|unique:pesertas,no_hp',
                 'jabatan'       => 'required|string|max:255',
                 'satker'        => 'required|string|max:255',
                 'tanggal'       => 'required|date',
@@ -34,6 +35,10 @@ class PendaftaranController extends Controller
                 'nip.required'          => 'NIP wajib diisi.',
                 'nip.digits_between'    => 'NIP harus berisi antara 1 sampai 20 digit angka.',
                 'nip.unique'            => 'NIP sudah terdaftar, gunakan NIP lain.',
+
+                'no_hp.required'          => 'Nomor Handphone wajib diisi.',
+                'no_hp.digits_between'    => 'Nomor Handphone harus berisi antara 8 sampai 15 digit angka.',
+                'no_hp.unique'            => 'Nomor Handphone sudah terdaftar, gunakan Nomor Handphone lain.',
 
                 'pangkat.required'      => 'Pangkat wajib dipilih.',
                 'jabatan.required'      => 'Jabatan wajib diisi.',
@@ -59,6 +64,7 @@ class PendaftaranController extends Controller
             Peserta::create([
                 'nama'              => $validated['nama'],
                 'nip'               => $validated['nip'],
+                'no_hp'               => $validated['no_hp'],
                 'pangkat'           => $validated['pangkat'],
                 'jabatan'           => $validated['jabatan'],
                 'satker'            => $validated['satker'],

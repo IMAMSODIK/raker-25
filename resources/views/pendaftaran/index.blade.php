@@ -224,6 +224,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="required">Nomor Handphone / Whatsapp</label>
+                        <input type="text" id="no_hp" name="no_hp" value="{{ old('no_hp') }}" class="form-control"
+                            placeholder="Nomor Handphone / Whatsapp" maxlength="20" required>
+                    </div>
+
+                    <div class="form-group">
                         <label class="required">Ukuran Baju</label>
                         <select id="ukuranBaju" name="ukuranBaju" class="form-control" required>
                             <option value="">Pilih ukuran</option>
