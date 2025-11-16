@@ -123,6 +123,13 @@
             border-radius: 8px;
             box-shadow: var(--shadow);
         }
+
+        .price-note {
+            margin-top: 4px;
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -275,6 +282,7 @@
                             <option value="Single" {{ old('kamar')=='Single' ? 'selected' : '' }}>Single</option>
                             <option value="Twin" {{ old('kamar')=='Twin' ? 'selected' : '' }}>Twin</option>
                         </select>
+                        <div class="price-note">Harga kamar adalah Rp699.000 per malam untuk setiap orang.</div>
                     </div>
 
                 </div>
