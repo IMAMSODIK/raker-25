@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulir Kedatangan Tamu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         :root {
             --primary: #2c3e50;
@@ -288,8 +289,14 @@
                             <option value="Single" {{ old('kamar')=='Single' ? 'selected' : '' }}>Single</option>
                             <option value="Twin" {{ old('kamar')=='Twin' ? 'selected' : '' }}>Twin</option>
                         </select>
-                        <div class="price-note">Harga kamar Twin adalah Rp699.000 per malam untuk setiap orang</div>
-                        <div class="price-note">Harga kamar single  adalah Rp930.000 per malam untuk setiap orang</div>
+                        <div class="price-note">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            Harga kamar Twin adalah Rp699.000 per malam untuk setiap orang
+                        </div>
+                        <div class="price-note">
+                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            Harga kamar single  adalah Rp930.000 per malam untuk setiap orang
+                        </div>
                     </div>
 
                 </div>
