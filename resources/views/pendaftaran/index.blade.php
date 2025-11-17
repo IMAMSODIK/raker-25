@@ -288,7 +288,8 @@
                             <option value="Single" {{ old('kamar')=='Single' ? 'selected' : '' }}>Single</option>
                             <option value="Twin" {{ old('kamar')=='Twin' ? 'selected' : '' }}>Twin</option>
                         </select>
-                        <div class="price-note">Harga kamar adalah Rp699.000 per malam untuk setiap orang.</div>
+                        <div class="price-note">Harga kamar Twin adalah Rp699.000 per malam untuk setiap orang</div>
+                        <div class="price-note">Harga kamar single  adalah Rp930.000 per malam untuk setiap orang</div>
                     </div>
 
                 </div>
