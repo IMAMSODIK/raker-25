@@ -1,0 +1,22 @@
+tidak required
+- tanggal kedatangan
+- jam kedatangan
+- maskapai
+
+
+absensi ada foto
+registirasi hanya tampilkan foto dari pedaftaran
+status pengambilan kit (hanya yang sudah registrasi)
+
+nomor kamar
+pengaturan kamar (nama dan nomor telefon)
+greeting tamu di monitor
+
+
+
+
+fashion
+
+generate jumlah tiket berdasarkan 
+
+registrasi undangan (scan barcode)

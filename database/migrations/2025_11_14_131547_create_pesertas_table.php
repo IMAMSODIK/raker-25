@@ -19,12 +19,20 @@ return new class extends Migration
             $table->string('pangkat');
             $table->string('jabatan');
             $table->string('satker');
-            $table->date('tanggal_kedatangan');
-            $table->time('jam_kedatangan');
-            $table->string('maskapai');
-            $table->string('status_kamar');
-            $table->string('ukuran_baju');
+            $table->date('tanggal_kedatangan')->nullable();
+            $table->time('jam_kedatangan')->nullable();
+            $table->string('maskapai')->nullable();
+            $table->string('status_kamar')->nullable();
+            $table->string('ukuran_baju')->nullable();
             $table->string('foto')->nullable();
+            $table->string('jenis_peserta')->default('peserta');
+            $table->foreignId('kamar_id')->nullable();
+            $table->dateTime('time_registrasi')->nullable();
+            $table->dateTime('time_kit')->nullable();
+            $table->dateTime('time_absensi1')->nullable();
+            $table->dateTime('time_absensi2')->nullable();
+            $table->dateTime('time_absensi3')->nullable();
+            $table->dateTime('time_absensi4')->nullable();
             $table->timestamps();
         });
     }

@@ -258,17 +258,18 @@
 
                     <div class="form-group">
                         <label class="required">Tanggal Kedatangan</label>
-                        <input type="date" name="tanggal" value="{{ old('tanggal') }}" class="form-control" required>
+                        <input type="date" name="tanggal" value="{{ old('tanggal') }}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label class="required">Jam Kedatangan</label>
-                        <input type="time" name="jam" value="{{ old('jam') }}" class="form-control" required>
+                        <input type="time" name="jam" value="{{ old('jam') }}" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label class="required">Maskapai / Armada</label>
-                        <select name="maskapai" class="form-control" value="{{ old('maskapai') }}" required>
+                        <select name="maskapai" class="form-control" value="{{ old('maskapai') }}">
+                            <option value="" {{ old('maskapai')=='S' ? 'selected' : '' }}></option>
                             <option value="Garuda Indonesia" {{ old('maskapai')=='S' ? 'selected' : '' }}>Garuda Indonesia</option>
                             <option value="Citilink" {{ old('maskapai')=='Citilink' ? 'selected' : '' }}>Citilink</option>
                             <option value="Lion Air" {{ old('maskapai')=='Lion Air' ? 'selected' : '' }}>Lion Air</option>

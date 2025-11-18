@@ -23,9 +23,9 @@ class PendaftaranController extends Controller
                 'no_hp'         => 'required|digits_between:8,15|unique:pesertas,no_hp',
                 'jabatan'       => 'required|string|max:255',
                 'satker'        => 'required|string|max:255',
-                'tanggal'       => 'required|date',
-                'jam'           => 'required',
-                'maskapai'      => 'required|string',
+                'tanggal'       => 'nullable|date',
+                'jam'           => 'nullable',
+                'maskapai'      => 'nullable|string',
                 'kamar'         => 'required|string',
                 'ukuranBaju'    => 'required|string',
                 'foto'          => 'required|image|mimes:jpg,jpeg,png|max:10000'
@@ -43,9 +43,6 @@ class PendaftaranController extends Controller
                 'pangkat.required'      => 'Pangkat wajib dipilih.',
                 'jabatan.required'      => 'Jabatan wajib diisi.',
                 'satker.required'       => 'Satker wajib diisi.',
-                'tanggal.required'      => 'Tanggal kedatangan wajib diisi.',
-                'jam.required'          => 'Jam kedatangan wajib diisi.',
-                'maskapai.required'     => 'Maskapai wajib dipilih.',
                 'kamar.required'        => 'Status kamar wajib dipilih.',
                 'ukuranBaju.required'   => 'Ukuran baju wajib dipilih.',
 
