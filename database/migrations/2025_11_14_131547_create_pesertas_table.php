@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('jenis_peserta')->default('peserta');
             $table->foreignId('kamar_id')->nullable();
             $table->dateTime('time_registrasi')->nullable();
-            $table->dateTime('time_kit')->nullable();
             $table->dateTime('time_absensi1')->nullable();
             $table->dateTime('time_absensi2')->nullable();
             $table->dateTime('time_absensi3')->nullable();

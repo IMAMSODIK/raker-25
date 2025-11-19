@@ -656,6 +656,188 @@
         </div>
     </section>
 
+    <section class="data-section">
+        <div class="container">
+            <h2 class="section-title">Data Kit Peserta</h2>
+            <div class="table-container table-responsive">
+                <table id="dataTableKit" class="table table-bordered table-striped table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="text-center align-middle">No</th>
+                            <th rowspan="2" class="text-center align-middle">Peserta</th>
+                            <th rowspan="2" class="text-center align-middle">Satuan Kerja</th>
+                            <th rowspan="2" class="text-center align-middle">Pangkat</th>
+                            <th rowspan="2" class="text-center align-middle">Jabatan</th>
+                            <th colspan="4" class="text-center align-middle">Kit</th>
+                        </tr>
+                        <tr>
+                            <th class="teMaxt-center align-middle">ID Card</th>
+                            <th class="text-center align-middle">Topi</th>
+                            <th class="text-center align-middle">Baju</th>
+                            <th class="text-center align-middle">Tas</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @php $no = 1; @endphp
+
+                        @foreach ($peserta as $item)
+                            <tr>
+                                <td class="text-center align-middle">{{ $no++ }}</td>
+
+                                {{-- Kolom Peserta --}}
+                                <td class="align-middle">
+                                    <div class="row align-items-center">
+
+                                        <div class="col-4 text-center">
+                                            <img width="50%" src="{{ asset('storage') . '/' . $item->foto }}"
+                                                class="img-fluid rounded" alt="Foto">
+                                        </div>
+
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12"><strong>{{ $item->nama }}</strong></div>
+                                                <div class="col-12"><small>NIP: {{ $item->nip }}</small></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <td class="align-middle">{{ $item->satker }}</td>
+                                <td class="text-center align-middle">{{ $item->pangkat }}</td>
+                                <td class="align-middle">{{ $item->jabatan }}</td>
+
+                                {{-- KIT: ID Card --}}
+                                <td class="text-center align-middle">
+                                    @if ($item->kit && $item->kit->id_card)
+                                        <span class="badge bg-success">Sudah</span>
+                                    @else
+                                        <span class="badge bg-danger">Belum</span>
+                                    @endif
+                                </td>
+
+                                {{-- KIT: Topi --}}
+                                <td class="text-center align-middle">
+                                    @if ($item->kit && $item->kit->topi)
+                                        <span class="badge bg-success">Sudah</span>
+                                    @else
+                                        <span class="badge bg-danger">Belum</span>
+                                    @endif
+                                </td>
+
+                                {{-- KIT: Baju --}}
+                                <td class="text-center align-middle">
+                                    @if ($item->kit && $item->kit->baju)
+                                        <span class="badge bg-success">Sudah</span>
+                                    @else
+                                        <span class="badge bg-danger">Belum</span>
+                                    @endif
+                                </td>
+
+                                {{-- KIT: Tas --}}
+                                <td class="text-center align-middle">
+                                    @if ($item->kit && $item->kit->tas)
+                                        <span class="badge bg-success">Sudah</span>
+                                    @else
+                                        <span class="badge bg-danger">Belum</span>
+                                    @endif
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="data-section">
+        <div class="container">
+            <h2 class="section-title mb-4">Data Materi Raker</h2>
+
+            @foreach ($materi as $m)
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+
+                        <div>
+                            <h5 class="card-title mb-1">{{ $m->nama_materi }}</h5>
+                            <small class="text-muted">
+                                Diunggah: {{ $m->created_at->format('d M Y') }}
+                            </small>
+                        </div>
+
+                        <div>
+                            <a href="{{ asset('storage/' . $m->file) }}" target="_blank"
+                                class="btn btn-primary btn-sm">
+                                Preview
+                            </a>
+
+                            <a href="{{ asset('storage/' . $m->file) }}" download class="btn btn-success btn-sm">
+                                Download
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            @endforeach
+
+            @if ($materi->isEmpty())
+                <div class="alert alert-info text-center">Belum ada materi raker</div>
+            @endif
+        </div>
+    </section>
+
+    <section class="data-section">
+        <div class="container">
+            <h2 class="section-title mb-4">Dokumentasi Raker</h2>
+
+            @if (count($dokumentasi) > 0)
+                <div class="row">
+                    @foreach ($dokumentasi as $d)
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <div class="card shadow-sm">
+                                <img src="{{ asset('storage/dokumentasi/' . $d->file) }}"
+                                    class="card-img-top img-preview" data-title="{{ $d->judul }}"
+                                    alt="{{ $d->judul }}"
+                                    style="height: 200px; object-fit: cover; cursor: pointer;">
+
+                                <div class="card-body">
+                                    <h6 class="card-title text-center">{{ $d->judul }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="alert alert-info text-center">
+                    Belum ada dokumentasi raker.
+                </div>
+            @endif
+
+        </div>
+    </section>
+
+    <!-- Modal Preview Gambar -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalImageTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" class="img-fluid rounded">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -739,6 +921,20 @@
             }
         });
     </script>
+
+    <script>
+        // Ketika gambar diklik
+        $(document).on("click", ".img-preview", function() {
+            let src = $(this).attr("src");
+            let title = $(this).data("title");
+
+            $("#modalImageTitle").text(title);
+            $("#modalImage").attr("src", src);
+
+            $("#imageModal").modal("show");
+        });
+    </script>
+
 </body>
 
 </html>

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             KamarSeeder::class,
             PesertaSeeder::class,
+            KitSeeder::class,
         ]);
     }
 }

@@ -4,19 +4,25 @@ use App\Http\Controllers\AbsensiNarasumberController;
 use App\Http\Controllers\AbsensiPesertaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\KamarController;
+use App\Http\Controllers\KitController;
+use App\Http\Controllers\MateriRapatController;
 use App\Http\Controllers\NarasumberController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PengaturanKamar;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\RegistrasiNarasumberController;
 use App\Http\Controllers\RegistrasiPesertaController;
+use App\Models\MateriRapat;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $data = [
         'pageTitle' => 'Welcome',
-        'peserta' => \App\Models\Peserta::all(),
+        'peserta' => \App\Models\Peserta::with('kit')->get(),
+        'materi' => MateriRapat::all(),
+        'dokumentasi' => \App\Models\Dokumentasi::all(),
     ];
 
     return view('welcome', $data);
@@ -30,6 +36,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/data-kamar/store', [KamarController::class, 'store']);
     Route::post('/data-kamar/update', [KamarController::class, 'update']);
     Route::post('/data-kamar/delete', [KamarController::class, 'delete']);
+
+    Route::get('/materi-raker', [MateriRapatController::class, 'index']);
+    Route::post('/materi-raker/store', [MateriRapatController::class, 'store']);
+    Route::post('/materi-raker/delete', [MateriRapatController::class, 'delete']);
+
+    Route::get('/dokumentasi-raker', [DokumentasiController::class, 'index']);
+    Route::post('/dokumentasi-raker/store', [DokumentasiController::class, 'store']);
+    Route::post('/dokumentasi-raker/delete', [DokumentasiController::class, 'delete']);
 
     Route::get('/pengaturan-kamar', [PengaturanKamar::class, 'index']);
     Route::get('/pengaturan-kamar/edit', [PengaturanKamar::class, 'edit']);
@@ -58,6 +72,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/registrasi-narasumber', [RegistrasiNarasumberController::class, 'index']);
     Route::get('/absensi-narasumber', [AbsensiNarasumberController::class, 'index']);
+
+    Route::get('/kit-peserta', [KitController::class, 'index']);
+    Route::get('/kit-peserta/get', [KitController::class, 'edit']);
+    Route::put('/kit-peserta/update/{id}', [KitController::class, 'update']);
+    Route::put('/kit-peserta/reset/{id}', [KitController::class, 'resetKit']);
+
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
