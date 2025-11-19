@@ -28,6 +28,23 @@ Route::get('/', function () {
     return view('welcome', $data);
 });
 
+Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
+Route::post('/pendaftaran', [PendaftaranController::class, 'store']);
+
+Route::get('/registrasi', function () {
+    $data = [
+        'pageTitle' => 'Registrasi Peserta',
+    ];
+    return view('errors.coming_soon', $data);
+});
+
+Route::get('/absensi', function () {
+    $data = [
+        'pageTitle' => 'Absensi Peserta',
+    ];
+    return view('errors.coming_soon', $data);
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']); 
 
@@ -83,9 +100,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
-    Route::post('/pendaftaran', [PendaftaranController::class, 'store']);
-
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'loginCheck']);
 });
