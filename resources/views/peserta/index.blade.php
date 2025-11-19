@@ -41,6 +41,7 @@
                                         <th class="text-center align-middle" style="width: 15%">Satuan Kerja</th>
                                         <th class="text-center align-middle">Pangkat</th>
                                         <th class="text-center align-middle">Jabatan</th>
+                                        <th class="text-center align-middle">Tipe Kamar</th>
                                         <th class="text-center align-middle">Waktu Kedatangan</th>
                                         <th class="text-center align-middle">Maskapai</th>
                                         <th class="text-center align-middle">Aksi</th>
@@ -79,6 +80,7 @@
                                             <td class="align-middle">{{ $item->satker }}</td>
                                             <td class="text-center align-middle">{{ $item->pangkat }}</td>
                                             <td class="align-middle">{{ $item->jabatan }}</td>
+                                            <td class="align-middle">{{ $item->status_kamar }}</td>
                                             <td class="text-center align-middle">
                                                 @if ($item->tanggal_kedatangan)
                                                     {{ \Carbon\Carbon::parse($item->tanggal_kedatangan)->translatedFormat('d F Y') }}
