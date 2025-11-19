@@ -385,7 +385,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content">
-                    <h1 class="hero-title">KONSINYERING PENYUSUNAN JUKNIS PENGGUNAAN BOPTN KEMENTRIAN AGAMA RI</h1>
+                    <h1 class="hero-title">KONSINYERING PENYUSUNAN JUKNIS  BOPTN KEMENTRIAN AGAMA RI</h1>
                     <p class="hero-subtitle">HOTEL POLONIA MEDAN, 24 - 27 NOVEMBER 2025</p>
                     <div class="d-flex flex-wrap">
                         <a href="/registrasi" class="btn hero-btn">Registrasi</a>
@@ -754,7 +754,7 @@
 
     <section class="data-section">
         <div class="container">
-            <h2 class="section-title mb-4">Data Materi Raker</h2>
+            <h2 class="section-title mb-4">Data Materi</h2>
 
             @foreach ($materi as $m)
                 <div class="card mb-3 shadow-sm">
@@ -783,14 +783,14 @@
             @endforeach
 
             @if ($materi->isEmpty())
-                <div class="alert alert-info text-center">Belum ada materi raker</div>
+                <div class="alert alert-info text-center">Belum ada materi</div>
             @endif
         </div>
     </section>
 
     <section class="data-section">
         <div class="container">
-            <h2 class="section-title mb-4">Dokumentasi Raker</h2>
+            <h2 class="section-title mb-4">Dokumentasi</h2>
 
             @if (count($dokumentasi) > 0)
                 <div class="row">
@@ -811,7 +811,7 @@
                 </div>
             @else
                 <div class="alert alert-info text-center">
-                    Belum ada dokumentasi raker.
+                    Belum ada dokumentasi.
                 </div>
             @endif
 

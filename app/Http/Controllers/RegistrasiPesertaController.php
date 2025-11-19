@@ -52,4 +52,9 @@ class RegistrasiPesertaController extends Controller
             ], 500);
         }
     }
+
+    public function registrasiCheck()
+    {
+        return view('registrasi.index');
+    }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Kedatangan Tamu</title>
+    <title>Formulir Registrasi Tamu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         :root {
@@ -240,7 +240,6 @@
                             <option value="XL" {{ old('ukuranBaju')=='XL' ? 'selected' : '' }}>XL</option>
                             <option value="XXL" {{ old('ukuranBaju')=='XXL' ? 'selected' : '' }}>XXL</option>
                             <option value="XXXL" {{ old('ukuranBaju')=='XXXL' ? 'selected' : '' }}>XXXL</option>
-                            <option value="XXXXL" {{ old('ukuranBaju')=='XXXXL' ? 'selected' : '' }}>XXXXL</option> 
                         </select>
                     </div>
 

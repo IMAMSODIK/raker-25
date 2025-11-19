@@ -95,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/kit-peserta/update/{id}', [KitController::class, 'update']);
     Route::put('/kit-peserta/reset/{id}', [KitController::class, 'resetKit']);
 
+    Route::get('/registrasi-peserta/check', [RegistrasiPesertaController::class, 'registrasiCheck']);
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
