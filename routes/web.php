@@ -31,6 +31,9 @@ Route::get('/', function () {
 Route::get('/pendaftaran', [PendaftaranController::class, 'index']);
 Route::post('/pendaftaran', [PendaftaranController::class, 'store']);
 
+Route::get('/pendaftaran-uinsu', [PendaftaranController::class, 'indexUinsu']);
+Route::post('/pendaftaran-uinsu', [PendaftaranController::class, 'storeUinsu']);
+
 Route::get('/registrasi', function () {
     $data = [
         'pageTitle' => 'Registrasi Peserta',
