@@ -86,7 +86,8 @@ class PesertaController extends Controller
                 'pangkat' => 'required',
                 'jabatan' => 'required',
                 'satker' => 'required',
-                'foto' => 'nullable|image|max:2048'
+                'status_kamar' => 'required',
+                'foto' => 'nullable|image|max:2048',
             ]);
 
             $peserta = Peserta::findOrFail($id);
@@ -98,6 +99,7 @@ class PesertaController extends Controller
             $peserta->pangkat = $request->pangkat;
             $peserta->jabatan = $request->jabatan;
             $peserta->satker = $request->satker;
+            $peserta->status_kamar = $request->status_kamar;
             $peserta->tanggal_kedatangan = $request->tanggal_kedatangan;
             $peserta->jam_kedatangan = $request->jam_kedatangan;
             $peserta->maskapai = $request->maskapai;

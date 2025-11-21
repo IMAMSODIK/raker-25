@@ -292,6 +292,14 @@
                             </div>
 
                             <div class="col-md-6">
+                                <label>Tipe Kamar</label>
+                                <select name="status_kamar" id="edit_status_kamar" class="form-control">
+                                    <option value="Single">Single</option>
+                                    <option value="Twin">Twin</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12">
                                 <label>Foto</label>
                                 <input type="file" name="foto" class="form-control">
                             </div>
@@ -399,6 +407,7 @@
                         $("#edit_tanggal").val(res.tanggal_kedatangan);
                         $("#edit_jam").val(res.jam_kedatangan);
                         $("#edit_maskapai").val(res.maskapai);
+                        $("#edit_status_kamar").val(res.status_kamar);
 
                         $("#modalEditPeserta").modal("show");
                     },

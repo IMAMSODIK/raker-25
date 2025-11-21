@@ -37,6 +37,7 @@
                                         <th class="text-center align-middle">Pangkat</th>
                                         <th class="text-center align-middle">Jabatan</th>
                                         <th class="text-center align-middle">Status Registrasi</th>
+                                        <th class="text-center align-middle">Tandan Tangan</th>
                                         <th class="text-center align-middle">Aksi</th>
                                     </tr>
                                 </thead>
@@ -85,7 +86,10 @@
                                                     </span>
                                                 @endif
                                             </td>
-
+                                            <td class="text-center align-middle">
+                                                <img width="100%" src="{{ asset('') . $item->ttd }}"
+                                                        class="img-fluid rounded" alt="Tandan Tangan">
+                                            </td>
                                             <td class="text-center align-middle">
 
                                                 <div class="d-flex justify-content-center gap-2">

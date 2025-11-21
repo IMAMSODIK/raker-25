@@ -49,4 +49,13 @@ class AbsensiPesertaController extends Controller
             ], 500);
         }
     }
+
+    public function absensiCheck()
+    {
+        $data = [
+            'pageTitle' => 'Cek Absensi Peserta',
+            'peserta' => Peserta::all(),
+        ];
+        return view('absensi.index', $data);
+    }
 }

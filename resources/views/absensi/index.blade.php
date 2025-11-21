@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Registrasi Tamu</title>
+    <title>Formulir Absensi Tamu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         :root {
@@ -228,8 +228,7 @@
         </div>
 
         <div class="form-header">
-            <h1>Formulir Registrasi Peserta</h1>
-            <p>Silakan lengkapi data diri Anda dengan benar</p>
+            <h1>Formulir Absensi Peserta</h1>
         </div>
 
         <div style="text-align:right; margin-bottom:20px;">
@@ -273,19 +272,9 @@
             <label>Satuan Kerja</label>
             <input type="text" id="satker" name="satker" readonly class="form-control">
 
-            <label>Foto</label><br>
-            <img id="previewFoto" src=""
-                style="width:130px; border-radius:8px; border:1px solid #ccc; margin-bottom:15px;">
-
-            <label>Tanda Tangan</label>
-            <div style="width:100%; max-width:500px;">
-                <canvas id="signaturePad" style="border:1px solid #000; width:100%; height:auto;"></canvas>
-            </div>
-            <input type="hidden" name="tanda_tangan" id="tanda_tangan">
-
             <button type="submit" onclick="saveSignature()"
                 style="padding:10px 20px; background:#27ae60; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; margin-top:20px;">
-                Simpan Registrasi
+                Simpan Absensi Hari Ini
             </button>
         </form>
 
@@ -316,84 +305,9 @@
             document.getElementById("nip").value = nip;
             document.getElementById("satker").value = satker;
 
-            document.getElementById("previewFoto").src = "/storage/foto/" + foto;
-
             closeSearchModal();
         }
     </script>
-
-    <script>
-        let canvas = document.getElementById("signaturePad");
-        let ctx = canvas.getContext("2d");
-
-        // ===============================
-        // Resize Canvas Responsively
-        // ===============================
-        function resizeCanvas() {
-            const width = canvas.offsetWidth; // width dari CSS
-            const height = 200; // bisa disesuaikan
-            canvas.width = width;
-            canvas.height = height;
-
-            ctx.lineWidth = 5; // ⚡ garis lebih tebal
-            ctx.lineCap = "round";
-            ctx.strokeStyle = "#000"; // warna hitam
-        }
-        resizeCanvas();
-
-        // Resize saat window berubah
-        window.addEventListener("resize", resizeCanvas);
-
-        // ===============================
-        // Signature Drawing
-        // ===============================
-        let drawing = false;
-
-        canvas.addEventListener("mousedown", () => {
-            drawing = true;
-        });
-        canvas.addEventListener("mouseup", () => {
-            drawing = false;
-            ctx.beginPath();
-        });
-        canvas.addEventListener("mousemove", draw);
-        canvas.addEventListener("touchstart", () => {
-            drawing = true;
-        });
-        canvas.addEventListener("touchend", () => {
-            drawing = false;
-            ctx.beginPath();
-        });
-        canvas.addEventListener("touchmove", drawTouch);
-
-        function draw(e) {
-            if (!drawing) return;
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(e.offsetX, e.offsetY);
-        }
-
-        function drawTouch(e) {
-            if (!drawing) return;
-            let rect = canvas.getBoundingClientRect();
-            let x = e.touches[0].clientX - rect.left;
-            let y = e.touches[0].clientY - rect.top;
-
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        }
-
-        // ===============================
-        // Save Signature
-        // ===============================
-        function saveSignature() {
-            document.getElementById("tanda_tangan").value = canvas.toDataURL("image/png");
-        }
-    </script>
-
 
 </body>
 

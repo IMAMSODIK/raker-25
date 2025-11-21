@@ -25,13 +25,18 @@ return new class extends Migration
             $table->string('status_kamar')->nullable();
             $table->string('ukuran_baju')->nullable();
             $table->string('foto')->nullable();
+            $table->string('ttd')->nullable();
             $table->string('jenis_peserta')->default('peserta');
             $table->foreignId('kamar_id')->nullable();
             $table->dateTime('time_registrasi')->nullable();
             $table->dateTime('time_absensi1')->nullable();
+            $table->string('foto_absensi1')->nullable();
             $table->dateTime('time_absensi2')->nullable();
+            $table->string('foto_absensi2')->nullable();
             $table->dateTime('time_absensi3')->nullable();
+            $table->string('foto_absensi3')->nullable();
             $table->dateTime('time_absensi4')->nullable();
+            $table->string('foto_absensi4')->nullable();
             $table->timestamps();
         });
     }

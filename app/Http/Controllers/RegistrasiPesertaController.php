@@ -55,6 +55,54 @@ class RegistrasiPesertaController extends Controller
 
     public function registrasiCheck()
     {
-        return view('registrasi.index');
+        $data = [
+            'pageTitle' => 'Registrasi Peserta',
+            'peserta' => Peserta::all(),
+        ];
+
+        return view('registrasi.index', $data);
+    }
+
+    public function registrasiCheckProccess(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nip' => 'required',
+            'satker' => 'required',
+            'tanda_tangan' => 'required',
+        ], [
+            'tanda_tangan.required' => 'Tanda tangan tidak boleh kosong.',
+        ]);
+
+        try {
+            $peserta = Peserta::where('nip', $request->nip)->first();
+
+            if (!$peserta) {
+                return back()->with('error', 'Data peserta tidak ditemukan.');
+            }
+
+            // Folder simpan tanda tangan
+            $folder = public_path('storage/ttd/');
+            if (!file_exists($folder)) mkdir($folder, 0777, true);
+
+            $ttdName = 'ttd_' . $peserta->nip . '.png';
+            $ttdPath = $folder . $ttdName;
+
+            // Simpan file dari base64
+            $image = str_replace('data:image/png;base64,', '', $request->tanda_tangan);
+            $image = str_replace(' ', '+', $image);
+
+            file_put_contents($ttdPath, base64_decode($image));
+
+            // Update peserta, simpan path ttd dan waktu registrasi
+            $peserta->update([
+                'time_registrasi' => now(),
+                'ttd' => 'storage/ttd/' . $ttdName, // path relatif ke public
+            ]);
+
+            return back()->with('success', 'Registrasi berhasil disimpan.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }
