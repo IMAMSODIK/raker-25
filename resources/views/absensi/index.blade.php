@@ -190,6 +190,59 @@
             margin-top: 10px;
         }
     </style>
+
+    <style>
+        .camera-wrapper {
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* VIDEO CAMERA */
+        #camera {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #000;
+        }
+
+        /* PREVIEW PHOTO */
+        .photo-preview {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        /* BUTTON */
+        .btn-capture {
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #e67e22;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* MOBILE ADJUSTMENT */
+        @media (max-width: 480px) {
+            .camera-wrapper {
+                max-width: 100%;
+            }
+
+            #camera,
+            .photo-preview {
+                aspect-ratio: 3/4;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -197,8 +250,7 @@
     <div class="container">
 
         @if (session('error'))
-            <div
-                style="padding: 12px; background:#ffdddd; border-left:4px solid #e74c3c; margin-bottom:15px; border-radius:5px;">
+            <div style="padding: 12px; background:#ffdddd; border-left:4px solid #e74c3c; margin-bottom:15px; border-radius:5px;">
                 {{ session('error') }}
             </div>
         @endif
@@ -222,7 +274,6 @@
             </div>
         @endif
 
-        <!-- 🔵 Flayer Paling Atas -->
         <div class="flayer-section">
             <img src="{{ asset('own_assets/images/flayer.jpeg') }}" alt="Flayer Acara" class="flayer-image">
         </div>
@@ -238,7 +289,6 @@
             </button>
         </div>
 
-        <!-- 🔍 Popup Search Modal -->
         <div id="searchModal" class="modal">
             <div class="modal-content">
                 <h3>Cari Data Peserta</h3>
@@ -260,9 +310,8 @@
             </div>
         </div>
 
-        <form action="/registrasi-test/check" method="POST">
+        <form id="absensiForm">
             @csrf
-
             <label>Nama Lengkap</label>
             <input type="text" id="nama" name="nama" readonly class="form-control">
 
@@ -272,13 +321,24 @@
             <label>Satuan Kerja</label>
             <input type="text" id="satker" name="satker" readonly class="form-control">
 
-            <button type="submit" onclick="saveSignature()"
-                style="padding:10px 20px; background:#27ae60; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; margin-top:20px;">
+            <label>Foto Absensi</label>
+
+            <div class="camera-wrapper">
+                <video id="camera" autoplay playsinline></video>
+                <canvas id="canvas" style="display:none;"></canvas>
+                <img id="photoResult" class="photo-preview" style="display:none;">
+
+                <button type="button" class="btn-capture" onclick="takePhoto()">
+                    Ambil Foto
+                </button>
+                <input type="hidden" id="foto_absensi" name="foto_absensi">
+            </div>
+
+
+            <button type="submit" style="padding:10px 20px; background:#27ae60; color:white; border:none; border-radius:6px; cursor:pointer; width:100%; margin-top:20px;">
                 Simpan Absensi Hari Ini
             </button>
         </form>
-
-
 
     </div>
 
@@ -307,6 +367,65 @@
 
             closeSearchModal();
         }
+    </script>
+
+    <script>
+        let cameraStream;
+
+        // Aktifkan kamera
+        navigator.mediaDevices.getUserMedia({
+                video: true
+            })
+            .then(stream => {
+                cameraStream = stream;
+                document.getElementById("camera").srcObject = stream;
+            })
+            .catch(err => {
+                alert("Kamera tidak dapat diakses: " + err);
+            });
+
+        function takePhoto() {
+            let video = document.getElementById("camera");
+            let canvas = document.getElementById("canvas");
+            let photoResult = document.getElementById("photoResult");
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            let ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            let data = canvas.toDataURL("image/png");
+
+            photoResult.src = data;
+            photoResult.style.display = "block";
+            document.getElementById("foto_absensi").value = data;
+        }
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $("#absensiForm").on("submit", function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: "/absensi-test/check",
+                type: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    alert("Absensi Berhasil Disimpan!");
+                    location.reload();
+                },
+                error: function(err) {
+                    alert("Gagal menyimpan absensi!");
+                    console.log(err);
+                }
+            });
+        });
     </script>
 
 </body>

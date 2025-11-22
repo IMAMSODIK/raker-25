@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AbsensiPesertaController extends Controller
 {
@@ -57,5 +58,30 @@ class AbsensiPesertaController extends Controller
             'peserta' => Peserta::all(),
         ];
         return view('absensi.index', $data);
+    }
+
+    public function absensiCheckProccess(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required',
+            'nip' => 'required',
+            'foto_absensi' => 'required',
+        ]);
+
+        $image = $request->foto_absensi;
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = 'absensi_' . time() . '.png';
+
+        Storage::disk('public')->put('absensi/' . $imageName, base64_decode($image));
+        $peserta = Peserta::where('nip', $request->nip)->first();
+
+        if ($peserta) {
+            $peserta->time_absensi1 = now();
+            $peserta->foto_absensi1 = $imageName;
+            $peserta->save();
+        }
+
+        return response()->json(['message' => 'Absensi berhasil']);
     }
 }
