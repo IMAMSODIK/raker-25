@@ -38,8 +38,8 @@
                                         <th class="text-center align-middle" rowspan="2">No</th>
                                         <th class="text-center align-middle" rowspan="2">Peserta</th>
                                         <th class="text-center align-middle" rowspan="2">No. Handphone</th>
-                                        <th class="text-center align-middle" rowspan="2" style="width: 15%">Satuan Kerja
-                                        </th>
+                                        <th class="text-center align-middle" rowspan="2">Status Registrasi</th>
+                                        <th class="text-center align-middle" rowspan="2" style="width: 15%">Satuan Kerja</th>
                                         <th class="text-center align-middle" rowspan="2">Pangkat</th>
                                         <th class="text-center align-middle" rowspan="2">Jabatan</th>
                                         <th class="text-center align-middle" colspan="4">Kit</th>
@@ -82,6 +82,18 @@
 
                                             </td>
                                             <td class="align-middle">{{ $item->no_hp }}</td>
+                                            <td class="text-center align-middle">
+                                                @if ($item->time_registrasi)
+                                                    <span class="badge bg-success">
+                                                        Sudah Registrasi<br>
+                                                        <small>{{ \Carbon\Carbon::parse($item->time_registrasi)->format('d-m-Y H:i') }}</small>
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-danger">
+                                                        Belum Registrasi
+                                                    </span>
+                                                @endif
+                                            </td>
                                             <td class="align-middle">{{ $item->satker }}</td>
                                             <td class="text-center align-middle">{{ $item->pangkat }}</td>
                                             <td class="align-middle">{{ $item->jabatan }}</td>
@@ -159,11 +171,11 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label>Nama</label>
-                                <input type="text" id="edit_nama" class="form-control">
+                                <input type="text" id="edit_nama" class="form-control" readonly>
                             </div>
                             <div class="col">
                                 <label>NIP</label>
-                                <input type="text" id="edit_nip" class="form-control">
+                                <input type="text" id="edit_nip" class="form-control" readonly>
                             </div>
                         </div>
 

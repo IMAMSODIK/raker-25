@@ -73,15 +73,20 @@ class AbsensiPesertaController extends Controller
         $image = str_replace(' ', '+', $image);
         $imageName = 'absensi_' . time() . '.png';
 
-        Storage::disk('public')->put('absensi/' . $imageName, base64_decode($image));
         $peserta = Peserta::where('nip', $request->nip)->first();
 
         if ($peserta) {
-            $peserta->time_absensi1 = now();
-            $peserta->foto_absensi1 = $imageName;
-            $peserta->save();
-        }
+            if($peserta->time_registrasi){
+                Storage::disk('public')->put('absensi/' . $imageName, base64_decode($image));
 
-        return response()->json(['message' => 'Absensi berhasil']);
+                $peserta->time_absensi1 = now();
+                $peserta->foto_absensi1 = $imageName;
+                $peserta->save();
+
+                return response()->json(['message' => 'Absensi berhasil']);
+            }else{
+                return response()->json(['message' => 'Silahkan registasi dahulu']);
+            }
+        }
     }
 }

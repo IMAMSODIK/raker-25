@@ -36,6 +36,8 @@
                                         <th class="text-center align-middle" style="width: 15%">Satuan Kerja</th>
                                         <th class="text-center align-middle">Pangkat</th>
                                         <th class="text-center align-middle">Jabatan</th>
+                                        <th class="text-center align-middle">Email</th>
+                                        <th class="text-center align-middle">Pendidikan Terakhir</th>
                                         <th class="text-center align-middle">Status Registrasi</th>
                                         <th class="text-center align-middle">Tandan Tangan</th>
                                         <th class="text-center align-middle">Aksi</th>
@@ -74,6 +76,8 @@
                                             <td class="align-middle">{{ $item->satker }}</td>
                                             <td class="text-center align-middle">{{ $item->pangkat }}</td>
                                             <td class="align-middle">{{ $item->jabatan }}</td>
+                                            <td class="align-middle">{{ $item->email }}</td>
+                                            <td class="align-middle">{{ $item->pendidikan_terkahir }}</td>
                                             <td class="text-center align-middle">
                                                 @if ($item->time_registrasi)
                                                     <span class="badge bg-success">

@@ -34,17 +34,24 @@ class KitController extends Controller
             // KIT
             $kit = Kit::firstOrCreate(['peserta_id' => $peserta->id]);
 
-            $kit->update([
-                'id_card' => $request->id_card,
-                'topi'    => $request->topi,
-                'baju'    => $request->baju,
-                'tas'     => $request->tas,
-            ]);
+            if($peserta->time_registrasi){
+                $kit->update([
+                    'id_card' => $request->id_card,
+                    'topi'    => $request->topi,
+                    'baju'    => $request->baju,
+                    'tas'     => $request->tas,
+                ]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Data berhasil diperbarui.'
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data berhasil diperbarui.'
+                ]);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Peserta belum registrasi.'
+                ]);
+            }
         } catch (\Exception $e) {
 
             return response()->json([

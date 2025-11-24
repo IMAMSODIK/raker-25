@@ -36,10 +36,12 @@
                                         <th>Satuan Kerja</th>
                                         <th>Pangkat</th>
                                         <th>Jabatan</th>
+                                        <th>Status Registrasi</th>
                                         <th>Jumlah Malam</th>
                                         <th>Tipe Kamar</th>
                                         <th>Total</th>
                                         <th>Status Bayar</th>
+                                        <th>Bukti Bayar</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -60,14 +62,63 @@
                                             <td class="text-center">{{ $item->pangkat }}</td>
                                             <td>{{ $item->jabatan }}</td>
 
-                                            <td>Jumlah Malam</td>
-                                            <td>Tipe Kamar</td>
-                                            <td>Total</td>
-                                            <td>Status Bayar</td>
+                                            <td class="text-center align-middle">
+                                                @if ($item->time_registrasi)
+                                                    <span class="badge bg-success">
+                                                        Sudah Registrasi<br>
+                                                        <small>{{ \Carbon\Carbon::parse($item->time_registrasi)->format('d-m-Y H:i') }}</small>
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-danger">
+                                                        Belum Registrasi
+                                                    </span>
+                                                @endif
+                                            </td>
+
+                                            <td class="text-center align-middle">{{ $item->jumlah_malam }} Malam</td>
+                                            <td class="text-center align-middle">
+                                                @if ($item->status_kamar == 'Single')
+                                                    <span class="badge bg-success">
+                                                        Single
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-info">
+                                                        Twin
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                @if ($item->status_kamar == 'Single')
+                                                    {{ 'Rp. ' . number_format($item->jumlah_malam * 699000, 0, ',', '.') }}
+                                                @else
+                                                    {{ 'Rp. ' . number_format($item->jumlah_malam * 930000, 0, ',', '.') }}
+                                                @endif
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                @if ($item->status_bayar)
+                                                    <span class="badge bg-success">
+                                                        Sudah Bayar
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-danger">
+                                                        Belum Bayar
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                @if ($item->bukti_bayar)
+                                                    <img width="70%" 
+                                                        src="{{ asset('storage') . '/' . $item->bukti_bayar }}"
+                                                        class="img-fluid rounded bukti-bayar-preview" 
+                                                        data-img="{{ asset('storage') . '/' . $item->bukti_bayar }}"
+                                                        style="cursor: pointer;"
+                                                        alt="bukti bayar">
+
+                                                @endif
+                                            </td>
 
                                             <td class="text-center">
-                                                <button class="btn btn-warning btn-sm edit"
-                                                    data-id="{{ $item->id }}">
+                                                <button class="btn btn-warning btn-sm edit" data-id="{{ $item->id }}">
                                                     Edit
                                                 </button>
                                             </td>
@@ -83,6 +134,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Preview Bukti Bayar -->
+    <div class="modal fade" id="previewBuktiBayarModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Preview Bukti Bayar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="previewBuktiBayarImg" src="" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="modal fade" id="modalAbsensi" tabindex="-1">
         <div class="modal-dialog modal-md">
@@ -145,7 +212,7 @@
                         <label>Bukti Pembayaran</label>
                         <input type="file" class="form-control" id="bb">
                     </div>
-                    
+
                 </div>
 
                 <div class="modal-footer">
@@ -171,7 +238,7 @@
                 autoWidth: false
             });
 
-            $("#durasi").on("input", function(){
+            $("#durasi").on("input", function() {
                 let val = $("#durasi").val();
                 let harga = $("#harga_permalam").val();
                 let angka = parseInt(harga.replace(/[^0-9]/g, ""));
@@ -179,7 +246,7 @@
                 $("#total_harga").val(formatRupiah(val * angka));
             })
 
-            $(document).on("click", ".edit", function(){
+            $(document).on("click", ".edit", function() {
                 let id = $(this).data('id');
 
                 $.ajax({
@@ -190,12 +257,14 @@
                     },
                     success: function(res) {
                         let status_kamar = res.status_kamar += " ";
-                        status_kamar += (res.status_kamar == 'Single') ? '(Rp. 699.000)' : '(Rp. 930.000)';
+                        status_kamar += (res.status_kamar == 'Single') ? '(Rp. 699.000)' :
+                            '(Rp. 930.000)';
                         $('#absensi_id').val(res.id);
                         $("#nama").val(res.nama);
                         $("#nip").val(res.nip);
                         $("#status_kamar").val(status_kamar);
-                        $("#harga_permalam").val((res.status_kamar == 'Single') ? '(Rp. 699.000)' : '(Rp. 930.000)')
+                        $("#harga_permalam").val((res.status_kamar == 'Single') ?
+                            '(Rp. 699.000)' : '(Rp. 930.000)')
 
                         $('#modalAbsensi').modal('show');
                     },
@@ -210,18 +279,30 @@
 
                 let id = $('#absensi_id').val();
 
+                let formData = new FormData();
+                formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+                formData.append('jumlah_malam', $('#durasi').val());
+                formData.append('metode_bayar', $('#metode').val());
+
+                // ambil file gambar
+                let file = $('#bb')[0].files[0];
+                if (file) {
+                    formData.append('bukti_bayar', file);
+                }
+
                 $.ajax({
                     url: "/pembayaran/update/" + id,
                     type: "POST",
-                    data: {
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        jumlah_malam: $('#durasi').val(),
-                        metode_bayar: $('#metode').val(),
-                        bukti_bayar: $('#bb').val(),
-                    },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(res) {
-                        Swal.fire("Berhasil", res.message, "success").then(() => location
-                            .reload());
+                        if(res.status){
+                            Swal.fire("Berhasil", res.message, "success").then(() => location
+                                .reload());
+                        }else{
+                            Swal.fire("Error", "Peserta belum melakukan registrasi", "error");    
+                        }
                     },
                     error: function() {
                         Swal.fire("Error", "Gagal menyimpan absensi", "error");
@@ -230,6 +311,17 @@
 
             });
 
+
         });
+
+        $(document).on('click', '.bukti-bayar-preview', function () {
+            let img = $(this).data('img');
+
+            $("#previewBuktiBayarImg").attr('src', img);
+
+            let modal = new bootstrap.Modal(document.getElementById('previewBuktiBayarModal'));
+            modal.show();
+        });
+
     </script>
 @endsection

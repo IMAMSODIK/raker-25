@@ -26,27 +26,39 @@ class PembayaranController extends Controller
     }
 
 
-    // public function updateAbsensi(Request $request, $id)
-    // {
-    //     try {
+    public function updatePembayaran(Request $request, $id)
+    {
+        try {
+            $peserta = Peserta::findOrFail($id);
 
-    //         $peserta = Peserta::findOrFail($id);
+            if($peserta->time_registrasi){
+                $foto = null;
+                if ($request->hasFile('bukti_bayar')) {
+                    $foto = $request->file('bukti_bayar')->store('bukti_bayar', 'public');
+                }
 
-    //         $peserta->time_absensi1 = $request->abs1 ? now() : null;
-    //         $peserta->time_absensi2 = $request->abs2 ? now() : null;
-    //         $peserta->time_absensi3 = $request->abs3 ? now() : null;
-    //         $peserta->time_absensi4 = $request->abs4 ? now() : null;
+                $peserta->jumlah_malam = $request->jumlah_malam;
+                $peserta->status_bayar = 1;
+                $peserta->metode_bayar = $request->metode;
+                $peserta->bukti_bayar = $foto;
 
-    //         $peserta->save();
+                $peserta->save();
 
-    //         return response()->json([
-    //             'message' => 'Absensi berhasil diperbarui'
-    //         ]);
-    //     } catch (\Exception $e) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Absensi berhasil diperbarui'
+                ]);
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Peserta belum melakukan registrasi'
+                ]);
+            }
+        } catch (\Exception $e) {
 
-    //         return response()->json([
-    //             'message' => 'Terjadi kesalahan: ' . $e->getMessage()
-    //         ], 500);
-    //     }
-    // }
+            return response()->json([
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }

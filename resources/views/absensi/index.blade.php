@@ -417,7 +417,7 @@
                 processData: false,
                 contentType: false,
                 success: function(res) {
-                    alert("Absensi Berhasil Disimpan!");
+                    alert(res.message);
                     location.reload();
                 },
                 error: function(err) {

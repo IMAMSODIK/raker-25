@@ -373,6 +373,7 @@
                                 <a class="nav-link" href="#">Kontak</a>
                             </li> --}}
                         </ul>
+                        <a href="/pendaftaran-uinsu" class="btn btn-custom ms-lg-3">UINSU</a>
                         <a href="/pendaftaran" class="btn btn-custom ms-lg-3">Pendaftaran</a>
                     </div>
                 </div>

@@ -252,7 +252,8 @@
                         <li
                             onclick="pilihPeserta('{{ $p->nama }}','{{ $p->nip }}','{{ $p->satker }}','{{ $p->foto }}','{{ $p->no_hp }}','{{ $p->pangkat }}','{{ $p->jabatan }}')">
                             <strong>{{ $p->nama }}</strong><br>
-                            <small>NIP: {{ $p->nip }}</small>
+                            <small>NIP: {{ $p->nip }}</small><br>
+                            <small>Satuan Kerja: {{ $p->satker }}</small>
                         </li>
                     @endforeach
                 </ul>
@@ -282,15 +283,17 @@
             <label>Satuan Kerja</label>
             <input type="text" id="satker" name="satker" readonly class="form-control">
 
-            <label>Email</label>
-            <input type="email" id="email" name="email" readonly class="form-control">
-
-            <label>Pendidikan Terakhir</label>
-            <input type="text" id="pt" name="pt" readonly class="form-control">
-
             <label>Foto</label><br>
             <img id="previewFoto" src=""
-                style="width:130px; border-radius:8px; border:1px solid #ccc; margin-bottom:15px;">
+                style="width:130px; border-radius:8px; border:1px solid #ccc; margin-bottom:30px;">
+
+                <hr style="margin-bottom:30px;">
+
+            <label>Email</label>
+            <input type="email" id="email" name="email" required class="form-control">
+
+            <label>Pendidikan Terakhir</label>
+            <input type="text" id="pt" name="pt" required class="form-control">
 
             <label>Tanda Tangan</label>
             <div style="width:100%; max-width:500px;">

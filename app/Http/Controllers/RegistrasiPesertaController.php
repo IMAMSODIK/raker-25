@@ -69,6 +69,8 @@ class RegistrasiPesertaController extends Controller
             'nama' => 'required',
             'nip' => 'required',
             'satker' => 'required',
+            'email' => 'required',
+            'pt' => 'required',
             'tanda_tangan' => 'required',
         ], [
             'tanda_tangan.required' => 'Tanda tangan tidak boleh kosong.',
@@ -81,7 +83,6 @@ class RegistrasiPesertaController extends Controller
                 return back()->with('error', 'Data peserta tidak ditemukan.');
             }
 
-            // Folder simpan tanda tangan
             $folder = public_path('storage/ttd/');
             if (!file_exists($folder)) mkdir($folder, 0777, true);
 
@@ -97,7 +98,9 @@ class RegistrasiPesertaController extends Controller
             // Update peserta, simpan path ttd dan waktu registrasi
             $peserta->update([
                 'time_registrasi' => now(),
-                'ttd' => 'storage/ttd/' . $ttdName, // path relatif ke public
+                'pendidikan_terkahir' => $request->pt,
+                'email' => $request->email,
+                'ttd' => 'storage/ttd/' . $ttdName,
             ]);
 
             return back()->with('success', 'Registrasi berhasil disimpan.');
