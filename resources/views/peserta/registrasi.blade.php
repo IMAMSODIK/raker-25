@@ -170,8 +170,7 @@
                 autoWidth: false
             });
 
-            $('.edit').on('click', function() {
-
+            $(document).on(".edit", "click", function(){
                 let id = $(this).data('id');
 
                 $.ajax({
@@ -202,8 +201,7 @@
                         Swal.fire("Error", "Gagal mengambil data registrasi!", "error");
                     }
                 });
-
-            });
+            })
 
 
             $('#btnUpdateRegistrasi').on('click', function() {

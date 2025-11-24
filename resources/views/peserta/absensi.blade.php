@@ -186,8 +186,7 @@
                 autoWidth: false
             });
 
-            $('.editAbsensi').on('click', function() {
-
+            $(document).on(".editAbsensi", "click", function(){
                 let id = $(this).data('id');
 
                 $.ajax({
@@ -208,9 +207,7 @@
                         $('#modalAbsensi').modal('show');
                     }
                 });
-
-            });
-
+            })
 
             // Simpan
             $('#saveAbsensi').on('click', function() {
