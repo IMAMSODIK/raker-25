@@ -192,28 +192,30 @@
     </style>
 
     <style>
-.btn-reset-signature {
-    background-color: #e63946;             /* merah elegan */
-    color: white;
-    padding: 10px 18px;
-    font-size: 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.25s ease-in-out;
-    box-shadow: 0px 3px 8px rgba(230, 57, 70, 0.3);
-}
+        .btn-reset-signature {
+            background-color: #e63946;
+            color: white;
+            padding: 10px 18px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.25s ease-in-out;
+            box-shadow: 0px 3px 8px rgba(230, 57, 70, 0.3);
+            width: 100%;
+        }
 
-.btn-reset-signature:hover {
-    background-color: #d62839;             /* sedikit lebih gelap */
-    box-shadow: 0px 4px 10px rgba(214, 40, 57, 0.4);
-}
+        .btn-reset-signature:hover {
+            background-color: #d62839;
+            /* sedikit lebih gelap */
+            box-shadow: 0px 4px 10px rgba(214, 40, 57, 0.4);
+        }
 
-.btn-reset-signature:active {
-    transform: scale(0.97);
-}
-</style>
+        .btn-reset-signature:active {
+            transform: scale(0.97);
+        }
+    </style>
 
 </head>
 
