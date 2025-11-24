@@ -71,8 +71,8 @@
                     res.forEach((item, i) => {
 
                         let rowClass = item.time_registrasi
-                            ? 'registered'
-                            : 'not-registered';
+                            ? 'bg-success'
+                            : 'bg-danger';
 
                         html += `
                         <tr class="${rowClass}">
