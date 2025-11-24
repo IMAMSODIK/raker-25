@@ -11,7 +11,7 @@ class MonitorController extends Controller
     public function index(){
         $data = [
             'pageTitle' => 'Pembayaran',
-            'data' => Peserta::all(),
+            'data' => Peserta::orderBy('time_registrasi', 'ASC')->get(),
         ];
 
         return view('monitor.registrasi', $data);
