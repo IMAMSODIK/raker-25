@@ -210,7 +210,7 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            url: "/materi-raker/delete/",
+                            url: "/materi-raker/delete",
                             type: "POST",
                             data: {
                                 _token: "{{ csrf_token() }}",
