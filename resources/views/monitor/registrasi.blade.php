@@ -113,7 +113,7 @@
         loadPeserta();
 
         // Auto refresh tiap 3 detik
-        setInterval(loadPeserta, 3000);
+        setInterval(loadPeserta, 1000);
     </script>
 </body>
 
