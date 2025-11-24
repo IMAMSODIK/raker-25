@@ -8,6 +8,7 @@ use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\KitController;
 use App\Http\Controllers\MateriRapatController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\NarasumberController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PendaftaranController;
@@ -108,6 +109,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/absensi-test/check', [AbsensiPesertaController::class, 'absensiCheck']);
     Route::post('/absensi-test/check', [AbsensiPesertaController::class, 'absensiCheckProccess']);
+
+    Route::get('/monitor-registrasi', [MonitorController::class, 'index']);
+
+    Route::get('/monitor/registrasi/data', function () {
+        return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_registrasi')->get();
+    })->name('monitor.registrasi.data');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
