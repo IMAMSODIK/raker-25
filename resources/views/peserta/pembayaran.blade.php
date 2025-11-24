@@ -289,6 +289,10 @@
                 let file = $('#bb')[0].files[0];
                 if (file) {
                     formData.append('bukti_bayar', file);
+                }else{
+                    if($('#metode').val() == "Transfer"){
+                        Swal.fire("Error", "Upload bukti pembayaran", "error");
+                    }
                 }
 
                 $.ajax({
