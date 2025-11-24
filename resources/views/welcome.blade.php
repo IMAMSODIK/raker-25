@@ -837,8 +837,6 @@
         </div>
     </div>
 
-
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -894,6 +892,24 @@
             });
 
             $('#dataTable3').DataTable({
+                "language": {
+                    "lengthMenu": "Tampilkan _MENU_ data per halaman",
+                    "zeroRecords": "Data tidak ditemukan",
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                    "infoEmpty": "Tidak ada data tersedia",
+                    "infoFiltered": "(disaring dari _MAX_ total data)",
+                    "search": "Cari:",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    }
+                },
+                "responsive": true
+            });
+
+            $('#dataTableKit').DataTable({
                 "language": {
                     "lengthMenu": "Tampilkan _MENU_ data per halaman",
                     "zeroRecords": "Data tidak ditemukan",
