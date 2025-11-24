@@ -39,7 +39,7 @@ class PembayaranController extends Controller
 
                 $peserta->jumlah_malam = $request->jumlah_malam;
                 $peserta->status_bayar = 1;
-                $peserta->metode_bayar = $request->metode;
+                $peserta->metode_bayar = $request->metode_bayar;
                 $peserta->bukti_bayar = $foto;
 
                 $peserta->save();
