@@ -113,7 +113,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/monitor-registrasi', [MonitorController::class, 'index']);
 
     Route::get('/monitor/registrasi/data', function () {
-        return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_registrasi')->orderBy('time_registrasi', 'ASC')->get();
+        return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_registrasi')->orderBy('time_registrasi', 'DESC')->get();
     })->name('monitor.registrasi.data');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
