@@ -113,7 +113,8 @@
                                                         data-img="{{ asset('storage') . '/' . $item->bukti_bayar }}"
                                                         style="cursor: pointer;"
                                                         alt="bukti bayar">
-
+                                                @else
+                                                    {{$item->metode_bayar}}
                                                 @endif
                                             </td>
 
