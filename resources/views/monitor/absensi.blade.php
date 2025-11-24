@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitor Absensi Peserta</title>
 
-    <!-- CSRF -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -39,135 +37,143 @@
             box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
         }
 
-        /* Search bar tetap di atas */
-        .search-container {
+        /* Search + card sticky */
+        .top-sticky {
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 100;
+            padding: 10px 0;
             background: #f5f5f5;
-            padding: 15px 0;
         }
     </style>
-
 </head>
 
 <body>
 
-    <div class="container py-4">
+<div class="container py-4">
 
-        <!-- ================= SEARCH & STATISTIK ================= -->
-        <div class="row mb-3 search-container">
-            <div class="col-md-8">
-                <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari nama / NIP / Satker...">
-            </div>
+    <!-- ======================= SEARCH + STATISTIK ======================= -->
+    <div class="row align-items-center top-sticky">
 
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-body text-center">
-                        <h5>Total Peserta: <span id="totalPeserta">0</span></h5>
-                        <h5>Total Absensi 1: <span id="totalAbsensi">0</span></h5>
-                    </div>
+        <div class="col-md-6 mb-2">
+            <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari nama / NIP / Satker...">
+        </div>
+
+        <div class="col-md-3 mb-2">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Peserta</h6>
+                    <h4 id="totalPeserta">0</h4>
                 </div>
             </div>
         </div>
 
-        <!-- ================= TABLE ================= -->
-        <div id="pesertaContainer" class="table-wrapper">
-            <div class="text-center py-4">
-                <div class="spinner-border"></div>
-                <p>Memuat data...</p>
+        <div class="col-md-3 mb-2">
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Absensi 1</h6>
+                    <h4 id="totalAbsensi">0</h4>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- ======================= TABLE ======================= -->
+    <div id="pesertaContainer" class="table-wrapper mt-2">
+        <div class="text-center py-4">
+            <div class="spinner-border"></div>
+            <p>Memuat data...</p>
+        </div>
+    </div>
 
-    <script>
-        let allPeserta = [];
+</div>
 
-        function loadPeserta() {
-            $.ajax({
-                url: "{{ route('monitor.absensi.data') }}",
-                type: "GET",
-                success: function(res) {
-                    allPeserta = res; // simpan data global untuk search
 
-                    // Hitung Statistik
-                    let total = res.length;
-                    let totalAbsensi = res.filter(i => i.time_absensi1 !== null).length;
 
-                    $("#totalPeserta").text(total);
-                    $("#totalAbsensi").text(totalAbsensi);
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-                    renderTable(res);
-                },
-                error: function() {
-                    $("#pesertaContainer").html(`
-                        <div class="alert alert-danger text-center">Gagal memuat data.</div>
-                    `);
-                }
-            });
-        }
+<script>
+    let allPeserta = [];
 
-        // Render ulang tabel
-        function renderTable(data) {
-            let html = `
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th width="50">#</th>
-                            <th>Nama</th>
-                            <th>NIP</th>
-                            <th>Satker</th>
-                            <th>Waktu Absensi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
+    function loadPeserta() {
+        $.ajax({
+            url: "{{ route('monitor.absensi.data') }}",
+            type: "GET",
+            success: function (res) {
+                allPeserta = res;
 
-            data.forEach((item, i) => {
-                let rowClass = item.time_absensi1 ? 'registered' : 'not-registered';
+                // Hitung statistik
+                $("#totalPeserta").text(res.length);
+                $("#totalAbsensi").text(res.filter(i => i.time_absensi1 !== null).length);
 
-                html += `
-                <tr class="${rowClass}">
-                    <td class="text-center">${i + 1}</td>
-                    <td>${item.nama}</td>
-                    <td>${item.nip}</td>
-                    <td>${item.satker}</td>
-                    <td>${item.time_absensi1 ?? '-'}</td>
+                renderTable(res);
+            },
+            error: function () {
+                $("#pesertaContainer").html(`
+                    <div class="alert alert-danger text-center">Gagal memuat data.</div>
+                `);
+            }
+        });
+    }
+
+    // Render tabel
+    function renderTable(data) {
+        let html = `
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th width="50">#</th>
+                    <th>Nama</th>
+                    <th>NIP</th>
+                    <th>Satker</th>
+                    <th>Waktu Absensi</th>
                 </tr>
-                `;
-            });
+            </thead>
+            <tbody>
+        `;
+
+        data.forEach((item, i) => {
+            let rowClass = item.time_absensi1 ? 'registered' : 'not-registered';
 
             html += `
-                    </tbody>
-                </table>
+            <tr class="${rowClass}">
+                <td class="text-center">${i + 1}</td>
+                <td>${item.nama}</td>
+                <td>${item.nip}</td>
+                <td>${item.satker}</td>
+                <td>${item.time_absensi1 ?? '-'}</td>
+            </tr>
             `;
-
-            $("#pesertaContainer").html(html);
-        }
-
-        // Live Search
-        $("#searchInput").on("keyup", function() {
-            let keyword = $(this).val().toLowerCase();
-
-            let filtered = allPeserta.filter(item =>
-                item.nama.toLowerCase().includes(keyword) ||
-                item.nip.toLowerCase().includes(keyword) ||
-                item.satker.toLowerCase().includes(keyword)
-            );
-
-            renderTable(filtered);
         });
 
-        // Load pertama kali
-        loadPeserta();
+        html += `
+            </tbody>
+        </table>
+        `;
 
-        // Auto refresh tiap 1 detik
-        setInterval(loadPeserta, 1000);
-    </script>
+        $("#pesertaContainer").html(html);
+    }
+
+    // Live search
+    $("#searchInput").on("keyup", function () {
+        let keyword = $(this).val().toLowerCase();
+
+        let filtered = allPeserta.filter(item =>
+            item.nama.toLowerCase().includes(keyword) ||
+            item.nip.toLowerCase().includes(keyword) ||
+            item.satker.toLowerCase().includes(keyword)
+        );
+
+        renderTable(filtered);
+    });
+
+    // Load pertama kali
+    loadPeserta();
+
+    // Auto refresh 1 detik
+    setInterval(loadPeserta, 1000);
+</script>
 
 </body>
 
