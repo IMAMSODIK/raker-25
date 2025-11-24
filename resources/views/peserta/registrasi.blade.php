@@ -92,7 +92,7 @@
                                             </td>
                                             <td class="text-center align-middle">
                                                 <img width="100%" src="{{ asset('') . $item->ttd }}"
-                                                    class="img-fluid rounded" alt="Tandan Tangan">
+                                                        class="img-fluid rounded" alt="Tandan Tangan">
                                             </td>
                                             <td class="text-center align-middle">
 
@@ -164,44 +164,44 @@
 @section('own_script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).on(".edit", "click", function() {
-            let id = $(this).data('id');
-
-            $.ajax({
-                url: "/peserta/get-registrasi", // endpoint ambil data
-                type: "GET",
-                data: {
-                    id: id
-                },
-                success: function(res) {
-
-                    $('#edit_id').val(res.id);
-
-                    if (res.time_registrasi) {
-                        $('#edit_status').val(1);
-                        let dt = res.time_registrasi.split(" ");
-
-                        $('#edit_tanggal').val(dt[0]);
-                        $('#edit_jam').val(dt[1].substring(0, 5));
-                    } else {
-                        $('#edit_status').val(0);
-                        $('#edit_tanggal').val("");
-                        $('#edit_jam').val("");
-                    }
-
-                    $('#modalEditRegistrasi').modal('show');
-                },
-                error: function() {
-                    Swal.fire("Error", "Gagal mengambil data registrasi!", "error");
-                }
-            });
-        })
-
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 responsive: true,
                 autoWidth: false
             });
+
+            $(document).on("click", ".edit", function(){
+                let id = $(this).data('id');
+
+                $.ajax({
+                    url: "/peserta/get-registrasi", // endpoint ambil data
+                    type: "GET",
+                    data: {
+                        id: id
+                    },
+                    success: function(res) {
+
+                        $('#edit_id').val(res.id);
+
+                        if (res.time_registrasi) {
+                            $('#edit_status').val(1);
+                            let dt = res.time_registrasi.split(" ");
+
+                            $('#edit_tanggal').val(dt[0]);
+                            $('#edit_jam').val(dt[1].substring(0, 5));
+                        } else {
+                            $('#edit_status').val(0);
+                            $('#edit_tanggal').val("");
+                            $('#edit_jam').val("");
+                        }
+
+                        $('#modalEditRegistrasi').modal('show');
+                    },
+                    error: function() {
+                        Swal.fire("Error", "Gagal mengambil data registrasi!", "error");
+                    }
+                });
+            })
 
             $('#btnUpdateRegistrasi').on('click', function() {
 
