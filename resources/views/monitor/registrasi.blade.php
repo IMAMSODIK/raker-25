@@ -17,7 +17,6 @@
         background: #f5f5f5;
     }
 
-    /* Background warna custom */
     table.table tr.registered td {
         background-color: #ccffd0 !important; /* hijau */
     }
@@ -48,6 +47,27 @@
 <body>
 
 <div class="container mt-4">
+
+    <!-- 📊 Statistik -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Total Peserta</h5>
+                    <h2 id="totalPeserta">0</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Total Belum Registrasi</h5>
+                    <h2 id="totalBelum">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="table-wrapper">
 
@@ -80,8 +100,10 @@
             url: "{{ route('monitor.absensi.data') }}",
             type: "GET",
             success: function (res) {
-                allData = res;      // simpan global
-                renderTable();      // render sesuai filter
+                allData = res;
+
+                renderTable();
+                renderStats(); // update statistik
             },
             error: function () {
                 $("#pesertaContainer").html(`
@@ -89,6 +111,15 @@
                 `);
             }
         });
+    }
+
+    // 📌 Render Statistik
+    function renderStats() {
+        let total = allData.length;
+        let belum = allData.filter(x => !x.time_absensi1).length;
+
+        $("#totalPeserta").text(total);
+        $("#totalBelum").text(belum);
     }
 
     // 🔍 FILTER + RENDER TABEL
@@ -118,7 +149,6 @@
 
         filtered.forEach((item, i) => {
 
-            // Jika time_absensi1 ada → hadir
             let rowClass = item.time_absensi1
                 ? 'registered'
                 : 'not-registered';
