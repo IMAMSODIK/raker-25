@@ -74,8 +74,8 @@
 
                         // GREEN if absensi == 1
                         let rowClass = item.absensi == 1
-                            ? 'bg-suucces'
-                            : 'bg-danger';
+                            ? 'bg-succes'
+                            : 'bg-warning';
 
                         html += `
                         <tr class="${rowClass}">
