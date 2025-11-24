@@ -13,95 +13,97 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-    body {
-        background: #f5f5f5;
-    }
+        body {
+            background: #f5f5f5;
+        }
 
-    table.table tr.registered td {
-        background-color: #ccffd0 !important;
-    }
+        table.table tr.registered td {
+            background-color: #ccffd0 !important;
+        }
 
-    table.table tr.not-registered td {
-        background-color: #ffe1e1 !important;
-    }
+        table.table tr.not-registered td {
+            background-color: #ffe1e1 !important;
+        }
 
-    table.table.table-striped > tbody > tr.registered:nth-of-type(odd) > * {
-        background-color: #c1f7c6 !important;
-    }
+        table.table.table-striped>tbody>tr.registered:nth-of-type(odd)>* {
+            background-color: #c1f7c6 !important;
+        }
 
-    table.table.table-striped > tbody > tr.not-registered:nth-of-type(odd) > * {
-        background-color: #ffd4d4 !important;
-    }
+        table.table.table-striped>tbody>tr.not-registered:nth-of-type(odd)>* {
+            background-color: #ffd4d4 !important;
+        }
 
-    .table-wrapper {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
-    }
-</style>
+        .table-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
+        }
+
+        /* Search bar tetap di atas */
+        .search-container {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #f5f5f5;
+            padding: 15px 0;
+        }
+    </style>
 
 </head>
 
 <body>
 
-    <div class="">
+    <div class="container py-4">
+
+        <!-- ================= SEARCH & STATISTIK ================= -->
+        <div class="row mb-3 search-container">
+            <div class="col-md-8">
+                <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari nama / NIP / Satker...">
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5>Total Peserta: <span id="totalPeserta">0</span></h5>
+                        <h5>Total Absensi 1: <span id="totalAbsensi">0</span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TABLE ================= -->
         <div id="pesertaContainer" class="table-wrapper">
-            <div class="text-center">
+            <div class="text-center py-4">
                 <div class="spinner-border"></div>
                 <p>Memuat data...</p>
             </div>
         </div>
+
     </div>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
+        let allPeserta = [];
+
         function loadPeserta() {
             $.ajax({
                 url: "{{ route('monitor.absensi.data') }}",
                 type: "GET",
-                success: function (res) {
+                success: function(res) {
+                    allPeserta = res; // simpan data global untuk search
 
-                    let html = `
-                    <table class="table table-bordered table-striped align-middle">
-                        <thead class="table-dark">
-                            <tr>
-                                <th width="50">#</th>
-                                <th>Nama</th>
-                                <th>NIP</th>
-                                <th>Satker</th>
-                                <th>Waktu Absensi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                    `;
+                    // Hitung Statistik
+                    let total = res.length;
+                    let totalAbsensi = res.filter(i => i.time_absensi1 !== null).length;
 
-                    res.forEach((item, i) => {
+                    $("#totalPeserta").text(total);
+                    $("#totalAbsensi").text(totalAbsensi);
 
-                        let rowClass = item.time_registrasi
-                            ? 'registered'
-                            : 'not-registered';
-
-                        html += `
-                        <tr class="${rowClass}">
-                            <td class="text-center">${i + 1}</td>
-                            <td>${item.nama}</td>
-                            <td>${item.nip}</td>
-                            <td>${item.satker}</td>
-                            <td>${item.time_absensi1 ?? '-'}</td>
-                        </tr>
-                        `;
-                    });
-
-                    html += `
-                        </tbody>
-                    </table>
-                    `;
-
-                    $("#pesertaContainer").html(html);
+                    renderTable(res);
                 },
-                error: function () {
+                error: function() {
                     $("#pesertaContainer").html(`
                         <div class="alert alert-danger text-center">Gagal memuat data.</div>
                     `);
@@ -109,12 +111,64 @@
             });
         }
 
+        // Render ulang tabel
+        function renderTable(data) {
+            let html = `
+                <table class="table table-bordered table-striped align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th width="50">#</th>
+                            <th>Nama</th>
+                            <th>NIP</th>
+                            <th>Satker</th>
+                            <th>Waktu Absensi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            data.forEach((item, i) => {
+                let rowClass = item.time_absensi1 ? 'registered' : 'not-registered';
+
+                html += `
+                <tr class="${rowClass}">
+                    <td class="text-center">${i + 1}</td>
+                    <td>${item.nama}</td>
+                    <td>${item.nip}</td>
+                    <td>${item.satker}</td>
+                    <td>${item.time_absensi1 ?? '-'}</td>
+                </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            $("#pesertaContainer").html(html);
+        }
+
+        // Live Search
+        $("#searchInput").on("keyup", function() {
+            let keyword = $(this).val().toLowerCase();
+
+            let filtered = allPeserta.filter(item =>
+                item.nama.toLowerCase().includes(keyword) ||
+                item.nip.toLowerCase().includes(keyword) ||
+                item.satker.toLowerCase().includes(keyword)
+            );
+
+            renderTable(filtered);
+        });
+
         // Load pertama kali
         loadPeserta();
 
-        // Auto refresh tiap 3 detik
+        // Auto refresh tiap 1 detik
         setInterval(loadPeserta, 1000);
     </script>
+
 </body>
 
 </html>
