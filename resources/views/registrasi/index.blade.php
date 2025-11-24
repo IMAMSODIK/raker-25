@@ -190,6 +190,31 @@
             margin-top: 10px;
         }
     </style>
+
+    <style>
+.btn-reset-signature {
+    background-color: #e63946;             /* merah elegan */
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.25s ease-in-out;
+    box-shadow: 0px 3px 8px rgba(230, 57, 70, 0.3);
+}
+
+.btn-reset-signature:hover {
+    background-color: #d62839;             /* sedikit lebih gelap */
+    box-shadow: 0px 4px 10px rgba(214, 40, 57, 0.4);
+}
+
+.btn-reset-signature:active {
+    transform: scale(0.97);
+}
+</style>
+
 </head>
 
 <body>
@@ -300,9 +325,10 @@
                 <canvas id="signaturePad" style="border:1px solid #000; width:100%; height:auto;"></canvas>
             </div>
 
-            <button type="button" onclick="resetSignature()" style="margin-top:10px;" class="btn btn-danger btn-sm">
+            <button type="button" onclick="resetSignature()" class="btn-reset-signature">
                 Reset Tanda Tangan
             </button>
+
 
             <input type="hidden" name="tanda_tangan" id="tanda_tangan">
 
@@ -349,91 +375,93 @@
     </script>
 
     <script>
-    let canvas = document.getElementById("signaturePad");
-    let ctx = canvas.getContext("2d");
+        let canvas = document.getElementById("signaturePad");
+        let ctx = canvas.getContext("2d");
 
-    // =====================================================
-    // Resize Canvas Responsive
-    // =====================================================
-    function resizeCanvas() {
-        const width = canvas.offsetWidth;
-        const height = 200;
-        canvas.width = width;
-        canvas.height = height;
+        // =====================================================
+        // Resize Canvas Responsive
+        // =====================================================
+        function resizeCanvas() {
+            const width = canvas.offsetWidth;
+            const height = 200;
+            canvas.width = width;
+            canvas.height = height;
 
-        ctx.lineWidth = 5;
-        ctx.lineCap = "round";
-        ctx.strokeStyle = "#000";
-    }
-    resizeCanvas();
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = "#000";
+        }
+        resizeCanvas();
 
-    window.addEventListener("resize", resizeCanvas);
+        window.addEventListener("resize", resizeCanvas);
 
-    // =====================================================
-    // Drawing
-    // =====================================================
-    let drawing = false;
+        // =====================================================
+        // Drawing
+        // =====================================================
+        let drawing = false;
 
-    // Prevent Scroll on Touch
-    ["touchstart", "touchmove", "touchend"].forEach(ev => {
-        canvas.addEventListener(ev, function(e) {
-            e.preventDefault(); // ⛔ STOP SCROLLING
-        }, { passive: false });
-    });
+        // Prevent Scroll on Touch
+        ["touchstart", "touchmove", "touchend"].forEach(ev => {
+            canvas.addEventListener(ev, function(e) {
+                e.preventDefault(); // ⛔ STOP SCROLLING
+            }, {
+                passive: false
+            });
+        });
 
-    // Mouse
-    canvas.addEventListener("mousedown", () => drawing = true);
-    canvas.addEventListener("mouseup", () => {
-        drawing = false;
-        ctx.beginPath();
-    });
-    canvas.addEventListener("mousemove", draw);
+        // Mouse
+        canvas.addEventListener("mousedown", () => drawing = true);
+        canvas.addEventListener("mouseup", () => {
+            drawing = false;
+            ctx.beginPath();
+        });
+        canvas.addEventListener("mousemove", draw);
 
-    // Touch
-    canvas.addEventListener("touchstart", () => drawing = true);
-    canvas.addEventListener("touchend", () => {
-        drawing = false;
-        ctx.beginPath();
-    });
-    canvas.addEventListener("touchmove", drawTouch);
+        // Touch
+        canvas.addEventListener("touchstart", () => drawing = true);
+        canvas.addEventListener("touchend", () => {
+            drawing = false;
+            ctx.beginPath();
+        });
+        canvas.addEventListener("touchmove", drawTouch);
 
-    function draw(e) {
-        if (!drawing) return;
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(e.offsetX, e.offsetY);
-    }
+        function draw(e) {
+            if (!drawing) return;
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX, e.offsetY);
+        }
 
-    function drawTouch(e) {
-        if (!drawing) return;
+        function drawTouch(e) {
+            if (!drawing) return;
 
-        let rect = canvas.getBoundingClientRect();
-        let x = e.touches[0].clientX - rect.left;
-        let y = e.touches[0].clientY - rect.top;
+            let rect = canvas.getBoundingClientRect();
+            let x = e.touches[0].clientX - rect.left;
+            let y = e.touches[0].clientY - rect.top;
 
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-    }
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
 
-    // =====================================================
-    // Save Signature
-    // =====================================================
-    function saveSignature() {
-        document.getElementById("tanda_tangan").value = canvas.toDataURL("image/png");
-    }
+        // =====================================================
+        // Save Signature
+        // =====================================================
+        function saveSignature() {
+            document.getElementById("tanda_tangan").value = canvas.toDataURL("image/png");
+        }
 
-    // =====================================================
-    // Reset Signature
-    // =====================================================
-    function resetSignature() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        document.getElementById("tanda_tangan").value = "";
-    }
-</script>
+        // =====================================================
+        // Reset Signature
+        // =====================================================
+        function resetSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            document.getElementById("tanda_tangan").value = "";
+        }
+    </script>
 
 
 
