@@ -411,7 +411,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: "/absensi-test/check",
+                url: "/absensi",
                 type: "POST",
                 data: new FormData(this),
                 processData: false,

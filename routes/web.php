@@ -37,19 +37,11 @@ Route::post('/pendaftaran', [PendaftaranController::class, 'store']);
 Route::get('/pendaftaran-uinsu', [PendaftaranController::class, 'indexUinsu']);
 Route::post('/pendaftaran-uinsu', [PendaftaranController::class, 'storeUinsu']);
 
-Route::get('/registrasi', function () {
-    $data = [
-        'pageTitle' => 'Registrasi Peserta',
-    ];
-    return view('errors.coming_soon', $data);
-});
+Route::get('/registrasi', [RegistrasiPesertaController::class, 'registrasiCheck']);
+Route::post('/registrasi', [RegistrasiPesertaController::class, 'registrasiCheckProccess']);
 
-Route::get('/absensi', function () {
-    $data = [
-        'pageTitle' => 'Absensi Peserta',
-    ];
-    return view('errors.coming_soon', $data);
-});
+Route::get('/absensi', [AbsensiPesertaController::class, 'absensiCheck']);
+Route::post('/absensi', [AbsensiPesertaController::class, 'absensiCheckProccess']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']); 
@@ -105,11 +97,11 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/kit-peserta/update/{id}', [KitController::class, 'update']);
     Route::put('/kit-peserta/reset/{id}', [KitController::class, 'resetKit']);
 
-    Route::get('/registrasi-test/check', [RegistrasiPesertaController::class, 'registrasiCheck']);
-    Route::post('/registrasi-test/check', [RegistrasiPesertaController::class, 'registrasiCheckProccess']);
+    // Route::get('/registrasi-test/check', [RegistrasiPesertaController::class, 'registrasiCheck']);
+    // Route::post('/registrasi-test/check', [RegistrasiPesertaController::class, 'registrasiCheckProccess']);
 
-    Route::get('/absensi-test/check', [AbsensiPesertaController::class, 'absensiCheck']);
-    Route::post('/absensi-test/check', [AbsensiPesertaController::class, 'absensiCheckProccess']);
+    // Route::get('/absensi-test/check', [AbsensiPesertaController::class, 'absensiCheck']);
+    // Route::post('/absensi-test/check', [AbsensiPesertaController::class, 'absensiCheckProccess']);
 
     Route::get('/monitor-registrasi', [MonitorController::class, 'index']);
     Route::get('/monitor-absensi', [MonitorController::class, 'absensi']);

@@ -262,7 +262,7 @@
             </div>
         </div>
 
-        <form action="/registrasi-test/check" method="POST">
+        <form action="/registrasi" method="POST">
             @csrf
 
             <label>Nama Lengkap</label>
