@@ -286,14 +286,20 @@
                 formData.append('metode_bayar', $('#metode').val());
 
                 // ambil file gambar
-                let file = $('#bb')[0].files[0];
-                if (file) {
-                    formData.append('bukti_bayar', file);
-                }else{
-                    if($('#metode').val() == "Transfer"){
+                let metode = $('#metode').val();
+                let fileInput = $('#bb')[0].files[0];
+
+                if (metode === "Transfer") {
+                    if (!fileInput) {
                         Swal.fire("Error", "Upload bukti pembayaran", "error");
+                        return; // hentikan eksekusi
                     }
+                    formData.append('bukti_bayar', fileInput);
+                } else {
+                    // metode bukan transfer → tidak perlu file
+                    formData.append('bukti_bayar', '');
                 }
+
 
                 $.ajax({
                     url: "/pembayaran/update/" + id,
