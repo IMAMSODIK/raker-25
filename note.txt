@@ -14,9 +14,18 @@ greeting tamu di monitor
 
 
 
+export data peserta selain uinsu (nama, nomor telepon, satker, waktu kedatangan , maskaspai)
+di registrasi tambahkan email dan pendidikan terkahir, form yang kiri kecuali ukuran baju
+tambah satuan kerja di opencaran peserta di absensi
+registrasi bisa jika peserta sudah daftar
+kit, absensi dan pemabayran harus regsitrasi dulu
+live status registrasi di tv
+tambahkan status regsitrasi di table kit
+tombol pendaftaran peserta lokal, uinsu
 
-fashion
+flow : registrasi, kit, pembayaran
 
-generate jumlah tiket berdasarkan 
 
-registrasi undangan (scan barcode)
+
+buat satu halaman password sebelum petugas memasukkan nama pemilik tiket
+nama zip adalah nama designer

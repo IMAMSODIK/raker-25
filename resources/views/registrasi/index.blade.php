@@ -250,7 +250,7 @@
                 <ul id="pesertaList" class="peserta-list">
                     @foreach ($peserta as $p)
                         <li
-                            onclick="pilihPeserta('{{ $p->nama }}','{{ $p->nip }}','{{ $p->satker }}','{{ $p->foto }}')">
+                            onclick="pilihPeserta('{{ $p->nama }}','{{ $p->nip }}','{{ $p->satker }}','{{ $p->foto }}','{{ $p->no_hp }}','{{ $p->pangkat }}','{{ $p->jabatan }}')">
                             <strong>{{ $p->nama }}</strong><br>
                             <small>NIP: {{ $p->nip }}</small>
                         </li>
@@ -270,8 +270,23 @@
             <label>NIP</label>
             <input type="text" id="nip" name="nip" readonly class="form-control">
 
+            <label>No. Handphone</label>
+            <input type="text" id="no_hp" name="no_hp" readonly class="form-control">
+
+            <label>Pangkat</label>
+            <input type="text" id="pangkat" name="pangkat" readonly class="form-control">
+
+            <label>Jabatan</label>
+            <input type="text" id="jabatan" name="jabatan" readonly class="form-control">
+
             <label>Satuan Kerja</label>
             <input type="text" id="satker" name="satker" readonly class="form-control">
+
+            <label>Email</label>
+            <input type="email" id="email" name="email" readonly class="form-control">
+
+            <label>Pendidikan Terakhir</label>
+            <input type="text" id="pt" name="pt" readonly class="form-control">
 
             <label>Foto</label><br>
             <img id="previewFoto" src=""
@@ -311,12 +326,15 @@
             });
         }
 
-        function pilihPeserta(nama, nip, satker, foto) {
+        function pilihPeserta(nama, nip, satker, foto, no_hp, pangkat, jabatan) {
             document.getElementById("nama").value = nama;
             document.getElementById("nip").value = nip;
             document.getElementById("satker").value = satker;
 
-            document.getElementById("previewFoto").src = "/storage/foto/" + foto;
+            document.getElementById("no_hp").value = no_hp;
+            document.getElementById("pangkat").value = pangkat;
+            document.getElementById("jabatan").value = jabatan;
+            document.getElementById("previewFoto").src = "/storage/" + foto;
 
             closeSearchModal();
         }

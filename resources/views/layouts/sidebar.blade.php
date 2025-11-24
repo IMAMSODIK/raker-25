@@ -86,6 +86,13 @@
                 </li>
 
                 <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title" href="/pembayaran">
+                        <i class="fa fa-money text-white" aria-hidden="true"></i>
+                        <span class="">Pembayaran</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title" href="/absensi-peserta">
                         <i class="fa fa-user-check text-white"></i>
                         <span class="">Absensi Peserta</span>

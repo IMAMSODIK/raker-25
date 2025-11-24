@@ -9,6 +9,7 @@ use App\Http\Controllers\KamarController;
 use App\Http\Controllers\KitController;
 use App\Http\Controllers\MateriRapatController;
 use App\Http\Controllers\NarasumberController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PengaturanKamar;
 use App\Http\Controllers\PesertaController;
@@ -83,6 +84,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/absensi-peserta', [AbsensiPesertaController::class, 'index']);
     Route::get('/absensi/get', [AbsensiPesertaController::class, 'getAbsensi']);
     Route::post('/absensi/update/{id}', [AbsensiPesertaController::class, 'updateAbsensi']);
+
+    Route::get('/pembayaran', [PembayaranController::class, 'index']);
+    Route::get('/pembayaran/get', [PembayaranController::class, 'getPembayaran']);
+    Route::post('/pembayaran/update/{id}', [PembayaranController::class, 'updatePembayaran']);
     
     Route::get('/daftar-narasumber', [NarasumberController::class, 'index']);
     Route::get('/daftar-narasumber/edit', [NarasumberController::class, 'edit']);

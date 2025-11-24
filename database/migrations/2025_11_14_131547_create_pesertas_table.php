@@ -37,6 +37,13 @@ return new class extends Migration
             $table->string('foto_absensi3')->nullable();
             $table->dateTime('time_absensi4')->nullable();
             $table->string('foto_absensi4')->nullable();
+
+            $table->smallInteger('jumlah_malam')->nullable();
+            $table->boolean('status_bayar')->default(0);
+            $table->string('metode_bayar')->nullable();
+            $table->string('bukti_bayar')->nullable();
+            $table->string('email')->nullable();
+            $table->string('pendidikan_terkahir')->nullable();
             $table->timestamps();
         });
     }
