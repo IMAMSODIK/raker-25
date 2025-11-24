@@ -17,6 +17,7 @@ use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\RegistrasiNarasumberController;
 use App\Http\Controllers\RegistrasiPesertaController;
 use App\Models\MateriRapat;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -111,10 +112,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/absensi-test/check', [AbsensiPesertaController::class, 'absensiCheckProccess']);
 
     Route::get('/monitor-registrasi', [MonitorController::class, 'index']);
+    Route::get('/monitor-absensi', [MonitorController::class, 'absensi']);
 
     Route::get('/monitor/registrasi/data', function () {
         return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_registrasi')->orderBy('time_registrasi', 'DESC')->get();
     })->name('monitor.registrasi.data');
+
+    Route::get('/monitor/absensi/data', function () {
+        return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_absensi1')->orderBy('time_absensi1', 'DESC')->get();
+    })->name('monitor.absensi.data');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

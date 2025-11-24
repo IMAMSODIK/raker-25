@@ -10,10 +10,19 @@ class MonitorController extends Controller
 {
     public function index(){
         $data = [
-            'pageTitle' => 'Pembayaran',
+            'pageTitle' => 'Registrasi',
             'data' => Peserta::orderBy('time_registrasi', 'DESC')->get(),
         ];
 
         return view('monitor.registrasi', $data);
+    }
+
+    public function absensi(Request $r){
+        $data = [
+            'pageTitle' => 'Absensi',
+            'data' => Peserta::orderBy('time_absensi1', 'DESC')->get(),
+        ];
+
+        return view('monitor.absensi', $data);
     }
 }
