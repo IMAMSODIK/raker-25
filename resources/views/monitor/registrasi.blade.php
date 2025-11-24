@@ -17,12 +17,10 @@
             background: #f5f5f5;
         }
 
-        /* Sudah absensi */
         .registered {
-            background: #b7ffb7 !important; /* hijau lebih terang */
+            background: #ccffd0 !important;
         }
 
-        /* Belum absensi */
         .not-registered {
             background: #ffe1e1 !important;
         }
@@ -54,7 +52,7 @@
             $.ajax({
                 url: "{{ route('monitor.registrasi.data') }}",
                 type: "GET",
-                success: function(res) {
+                success: function (res) {
 
                     let html = `
                     <table class="table table-bordered table-striped align-middle">
@@ -64,7 +62,7 @@
                                 <th>Nama</th>
                                 <th>NIP</th>
                                 <th>Satker</th>
-                                <th>Absensi</th>
+                                <th>Waktu Registrasi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,8 +70,7 @@
 
                     res.forEach((item, i) => {
 
-                        // GREEN if absensi == 1
-                        let rowClass = item.absensi == 1
+                        let rowClass = item.time_registrasi
                             ? 'registered'
                             : 'not-registered';
 
@@ -83,7 +80,7 @@
                             <td>${item.nama}</td>
                             <td>${item.nip}</td>
                             <td>${item.satker}</td>
-                            <td>${item.absensi == 1 ? '✔ Hadir' : '-'}</td>
+                            <td>${item.time_registrasi ?? '-'}</td>
                         </tr>
                         `;
                     });
@@ -95,14 +92,18 @@
 
                     $("#pesertaContainer").html(html);
                 },
-                error: function() {
+                error: function () {
                     $("#pesertaContainer").html(`
                         <div class="alert alert-danger text-center">Gagal memuat data.</div>
                     `);
                 }
             });
         }
+
+        // Load pertama kali
         loadPeserta();
+
+        // Auto refresh tiap 3 detik
         setInterval(loadPeserta, 3000);
     </script>
 </body>
