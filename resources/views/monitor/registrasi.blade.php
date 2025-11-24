@@ -13,24 +13,33 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        body {
-            background: #f5f5f5;
-        }
+    body {
+        background: #f5f5f5;
+    }
 
-        .registered {
-            background: #ccffd0 !important;
-        }
+    table.table tr.registered td {
+        background-color: #ccffd0 !important;
+    }
 
-        .not-registered {
-            background: #ffe1e1 !important;
-        }
+    table.table tr.not-registered td {
+        background-color: #ffe1e1 !important;
+    }
 
-        .table-wrapper {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
-        }
-    </style>
+    table.table.table-striped > tbody > tr.registered:nth-of-type(odd) > * {
+        background-color: #c1f7c6 !important;
+    }
+
+    table.table.table-striped > tbody > tr.not-registered:nth-of-type(odd) > * {
+        background-color: #ffd4d4 !important;
+    }
+
+    .table-wrapper {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
+    }
+</style>
+
 </head>
 
 <body>
@@ -71,8 +80,8 @@
                     res.forEach((item, i) => {
 
                         let rowClass = item.time_registrasi
-                            ? 'bg-success'
-                            : 'bg-danger';
+                            ? 'registered'
+                            : 'not-registered';
 
                         html += `
                         <tr class="${rowClass}">
