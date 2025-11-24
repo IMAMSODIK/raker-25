@@ -116,7 +116,7 @@
     // 📌 Render Statistik
     function renderStats() {
         let total = allData.length;
-        let belum = allData.filter(x => !x.time_absensi1).length;
+        let belum = allData.filter(x => !x.time_registrasi).length;
 
         $("#totalPeserta").text(total);
         $("#totalBelum").text(belum);
@@ -141,7 +141,7 @@
                     <th>Nama</th>
                     <th>NIP</th>
                     <th>Satker</th>
-                    <th>Waktu Absensi</th>
+                    <th>Waktu Registrasi</th>
                 </tr>
             </thead>
             <tbody>
@@ -149,7 +149,7 @@
 
         filtered.forEach((item, i) => {
 
-            let rowClass = item.time_absensi1
+            let rowClass = item.time_registrasi
                 ? 'registered'
                 : 'not-registered';
 
@@ -159,7 +159,7 @@
                 <td>${item.nama}</td>
                 <td>${item.nip}</td>
                 <td>${item.satker}</td>
-                <td>${item.time_absensi1 ?? '-'}</td>
+                <td>${item.time_registrasi ?? '-'}</td>
             </tr>
             `;
         });
