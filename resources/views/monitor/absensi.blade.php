@@ -50,76 +50,96 @@
 
 <body>
 
-<div class="container py-4">
+    <div class="container py-4">
 
-    <!-- ======================= SEARCH + STATISTIK ======================= -->
-    <div class="row align-items-center top-sticky">
+        <!-- ======================= SEARCH + STATISTIK ======================= -->
+        <div class="row align-items-center top-sticky">
 
-        <div class="col-md-6 mb-2">
-            <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Cari nama / NIP / Satker...">
-        </div>
+            <div class="col-md-6 mb-2">
+                <input type="text" id="searchInput" class="form-control form-control-lg"
+                    placeholder="Cari nama / NIP / Satker...">
+            </div>
 
-        <div class="col-md-3 mb-2">
-            <div class="card shadow-sm text-center">
-                <div class="card-body">
-                    <h6 class="text-muted">Total Peserta</h6>
-                    <h4 id="totalPeserta">0</h4>
+            <div class="col-md-3 mb-2">
+                <div class="card shadow-sm text-center">
+                    <div class="card-body">
+                        <h6 class="text-muted">Total Peserta</h6>
+                        <h4 id="totalPeserta">0</h4>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-md-3 mb-2">
+                <div class="card shadow-sm text-center">
+                    <div class="card-body">
+                        <h6 class="text-muted">Total Absensi 1</h6>
+                        <h4 id="totalAbsensi">0</h4>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="col-md-3 mb-2">
-            <div class="card shadow-sm text-center">
-                <div class="card-body">
-                    <h6 class="text-muted">Total Absensi 1</h6>
-                    <h4 id="totalAbsensi">0</h4>
-                </div>
+        <!-- ======================= TABLE ======================= -->
+        <div id="pesertaContainer" class="table-wrapper mt-2">
+            <div class="text-center py-4">
+                <div class="spinner-border"></div>
+                <p>Memuat data...</p>
             </div>
         </div>
 
     </div>
 
-    <!-- ======================= TABLE ======================= -->
-    <div id="pesertaContainer" class="table-wrapper mt-2">
-        <div class="text-center py-4">
-            <div class="spinner-border"></div>
-            <p>Memuat data...</p>
-        </div>
-    </div>
-
-</div>
 
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        let allPeserta = [];
 
-<script>
-    let allPeserta = [];
+        function loadPeserta() {
+            $.ajax({
+                url: "{{ route('monitor.absensi.data') }}",
+                type: "GET",
+                success: function(res) {
+                    allPeserta = res;
 
-    function loadPeserta() {
-        $.ajax({
-            url: "{{ route('monitor.absensi.data') }}",
-            type: "GET",
-            success: function (res) {
-                allPeserta = res;
+                    // Hitung statistik
+                    $("#totalPeserta").text(res.length);
+                    $("#totalAbsensi").text(res.filter(i => i.time_absensi1 !== null).length);
 
-                // Hitung statistik
-                $("#totalPeserta").text(res.length);
-                $("#totalAbsensi").text(res.filter(i => i.time_absensi1 !== null).length);
-
-                renderTable(res);
-            },
-            error: function () {
-                $("#pesertaContainer").html(`
+                    renderTable(res);
+                },
+                error: function() {
+                    $("#pesertaContainer").html(`
                     <div class="alert alert-danger text-center">Gagal memuat data.</div>
                 `);
-            }
-        });
-    }
+                }
+            });
+        }
 
-    // Render tabel
-    function renderTable(data) {
-        let html = `
+        function formatWaktuIndonesia(datetime) {
+            if (!datetime) return "-";
+
+            // Ubah ke objek Date (dibaca sebagai lokal browser)
+            let d = new Date(datetime.replace(" ", "T"));
+
+            // Tambahkan 7 jam
+            d.setHours(d.getHours() + 7);
+
+            let tgl = d.getDate().toString().padStart(2, "0");
+            let bln = (d.getMonth() + 1).toString().padStart(2, "0");
+            let thn = d.getFullYear();
+
+            let jam = d.getHours().toString().padStart(2, "0");
+            let menit = d.getMinutes().toString().padStart(2, "0");
+
+            return `${tgl}-${bln}-${thn} ${jam}:${menit}`;
+        }
+
+        // Render tabel
+        function renderTable(data) {
+            let html = `
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">
                 <tr>
@@ -133,47 +153,47 @@
             <tbody>
         `;
 
-        data.forEach((item, i) => {
-            let rowClass = item.time_absensi1 ? 'registered' : 'not-registered';
+            data.forEach((item, i) => {
+                let rowClass = item.time_absensi1 ? 'registered' : 'not-registered';
 
-            html += `
+                html += `
             <tr class="${rowClass}">
                 <td class="text-center">${i + 1}</td>
                 <td>${item.nama}</td>
                 <td>${item.nip}</td>
                 <td>${item.satker}</td>
-                <td>${item.time_absensi1 ?? '-'}</td>
+                <td>${ formatWaktuIndonesia(item.time_absensi1) ?? '-'}</td>
             </tr>
             `;
-        });
+            });
 
-        html += `
+            html += `
             </tbody>
         </table>
         `;
 
-        $("#pesertaContainer").html(html);
-    }
+            $("#pesertaContainer").html(html);
+        }
 
-    // Live search
-    $("#searchInput").on("keyup", function () {
-        let keyword = $(this).val().toLowerCase();
+        // Live search
+        $("#searchInput").on("keyup", function() {
+            let keyword = $(this).val().toLowerCase();
 
-        let filtered = allPeserta.filter(item =>
-            item.nama.toLowerCase().includes(keyword) ||
-            item.nip.toLowerCase().includes(keyword) ||
-            item.satker.toLowerCase().includes(keyword)
-        );
+            let filtered = allPeserta.filter(item =>
+                item.nama.toLowerCase().includes(keyword) ||
+                item.nip.toLowerCase().includes(keyword) ||
+                item.satker.toLowerCase().includes(keyword)
+            );
 
-        renderTable(filtered);
-    });
+            renderTable(filtered);
+        });
 
-    // Load pertama kali
-    loadPeserta();
+        // Load pertama kali
+        loadPeserta();
 
-    // Auto refresh 1 detik
-    setInterval(loadPeserta, 1000);
-</script>
+        // Auto refresh 1 detik
+        setInterval(loadPeserta, 1000);
+    </script>
 
 </body>
 
