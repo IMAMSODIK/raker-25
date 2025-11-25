@@ -122,6 +122,21 @@
         $("#totalBelum").text(belum);
     }
 
+    function formatWaktuIndonesia(datetime) {
+        if (!datetime) return "-";
+
+        let d = new Date(datetime);
+
+        let tgl  = d.getDate().toString().padStart(2, '0');
+        let bln  = (d.getMonth() + 1).toString().padStart(2, '0');
+        let thn  = d.getFullYear();
+
+        let jam  = d.getHours().toString().padStart(2, '0');
+        let menit = d.getMinutes().toString().padStart(2, '0');
+
+        return `${tgl}-${bln}-${thn} ${jam}:${menit}`;
+    }
+
     // 🔍 FILTER + RENDER TABEL
     function renderTable() {
 
@@ -159,7 +174,7 @@
                 <td>${item.nama}</td>
                 <td>${item.nip}</td>
                 <td>${item.satker}</td>
-                <td>${item.time_registrasi ?? '-'}</td>
+                <td>${ formatWaktuIndonesia(item.time_registrasi) }</td>
             </tr>
             `;
         });
