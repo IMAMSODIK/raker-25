@@ -248,32 +248,38 @@
             })
 
             $(document).on("click", ".edit", function() {
-                let id = $(this).data('id');
+    let id = $(this).data('id');
 
-                $.ajax({
-                    url: "/pembayaran/get",
-                    type: "GET",
-                    data: {
-                        id: id
-                    },
-                    success: function(res) {
-                        let status_kamar = res.status_kamar += " ";
-                        status_kamar += (res.status_kamar == 'Single') ? '(Rp. 930.000)' :
-                            '(Rp. 699.000)';
-                        $('#absensi_id').val(res.id);
-                        $("#nama").val(res.nama);
-                        $("#nip").val(res.nip);
-                        $("#status_kamar").val(status_kamar);
-                        $("#harga_permalam").val((res.status_kamar == 'Single') ?
-                            '(Rp. 930.000)' : '(Rp. 699.000)')
+    $.ajax({
+        url: "/pembayaran/get",
+        type: "GET",
+        data: { id: id },
+        success: function(res) {
 
-                        $('#modalAbsensi').modal('show');
-                    },
-                    error: function() {
-                        Swal.fire("Error", "Gagal mengambil data", "error");
-                    }
-                });
-            })
+            let statusAsli = res.status_kamar; // simpan dulu sebelum diubah
+
+            let status_kamar = statusAsli + " ";
+            status_kamar += (statusAsli === 'Single')
+                ? '(Rp. 930.000)'
+                : '(Rp. 699.000)';
+
+            $('#absensi_id').val(res.id);
+            $("#nama").val(res.nama);
+            $("#nip").val(res.nip);
+            $("#status_kamar").val(status_kamar);
+
+            $("#harga_permalam").val(
+                (statusAsli === 'Single') ? 'Rp. 930.000' : 'Rp. 699.000'
+            );
+
+            $('#modalAbsensi').modal('show');
+        },
+        error: function() {
+            Swal.fire("Error", "Gagal mengambil data", "error");
+        }
+    });
+});
+
 
             // Simpan
             $('#saveAbsensi').on('click', function() {
