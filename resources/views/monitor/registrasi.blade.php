@@ -123,19 +123,24 @@
     }
 
     function formatWaktuIndonesia(datetime) {
-        if (!datetime) return "-";
+    if (!datetime) return "-";
 
-        let d = new Date(datetime);
+    // Ubah string datetime menjadi date UTC
+    let d = new Date(datetime.replace(" ", "T") + "Z");
 
-        let tgl  = d.getDate().toString().padStart(2, '0');
-        let bln  = (d.getMonth() + 1).toString().padStart(2, '0');
-        let thn  = d.getFullYear();
+    // Tambahkan offset WIB (UTC+7)
+    d.setHours(d.getHours() + 7);
 
-        let jam  = d.getHours().toString().padStart(2, '0');
-        let menit = d.getMinutes().toString().padStart(2, '0');
+    let tgl = d.getDate().toString().padStart(2, '0');
+    let bln = (d.getMonth() + 1).toString().padStart(2, '0');
+    let thn = d.getFullYear();
 
-        return `${tgl}-${bln}-${thn} ${jam}:${menit}`;
-    }
+    let jam = d.getHours().toString().padStart(2, '0');
+    let menit = d.getMinutes().toString().padStart(2, '0');
+
+    return `${tgl}-${bln}-${thn} ${jam}:${menit}`;
+}
+
 
     // 🔍 FILTER + RENDER TABEL
     function renderTable() {
