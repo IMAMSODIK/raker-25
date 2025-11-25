@@ -111,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('monitor.registrasi.data');
 
     Route::get('/monitor/absensi/data', function () {
-        return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_absensi1')->orderBy('time_absensi1', 'DESC')->get();
+        return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_absensi2')->orderBy('time_absensi2', 'DESC')->get();
     })->name('monitor.absensi.data');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

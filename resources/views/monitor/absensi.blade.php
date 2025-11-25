@@ -72,7 +72,7 @@
             <div class="col-md-3 mb-2">
                 <div class="card shadow-sm text-center">
                     <div class="card-body">
-                        <h6 class="text-muted">Total Absensi 1</h6>
+                        <h6 class="text-muted">Total Absensi 2</h6>
                         <h4 id="totalAbsensi">0</h4>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
 
                     // Hitung statistik
                     $("#totalPeserta").text(res.length);
-                    $("#totalAbsensi").text(res.filter(i => i.time_absensi1 !== null).length);
+                    $("#totalAbsensi").text(res.filter(i => i.time_absensi2 !== null).length);
 
                     renderTable(res);
                 },
@@ -162,7 +162,7 @@
                 <td>${item.nama}</td>
                 <td>${item.nip}</td>
                 <td>${item.satker}</td>
-                <td>${ formatWaktuIndonesia(item.time_absensi1) ?? '-'}</td>
+                <td>${ formatWaktuIndonesia(item.time_absensi2) ?? '-'}</td>
             </tr>
             `;
             });
@@ -198,3 +198,6 @@
 </body>
 
 </html>
+Kepala Bagian Tata Usaha Fakultas Syariah dan Hukum
+
+{{-- Abdul Jousef Sitepu, S.Ag, M.A.P. --}}
