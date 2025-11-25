@@ -89,9 +89,9 @@
                                             </td>
                                             <td class="text-center align-middle">
                                                 @if ($item->status_kamar == 'Single')
-                                                    {{ 'Rp. ' . number_format($item->jumlah_malam * 699000, 0, ',', '.') }}
-                                                @else
                                                     {{ 'Rp. ' . number_format($item->jumlah_malam * 930000, 0, ',', '.') }}
+                                                @else
+                                                    {{ 'Rp. ' . number_format($item->jumlah_malam * 699000, 0, ',', '.') }}
                                                 @endif
                                             </td>
                                             <td class="text-center align-middle">
