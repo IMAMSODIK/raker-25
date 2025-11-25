@@ -123,19 +123,24 @@
     }
 
     function formatWaktuIndonesia(datetime) {
-        if (!datetime) return "-";
+    if (!datetime) return "-";
 
-        let d = new Date(datetime);
+    // Ubah ke objek Date (dibaca sebagai lokal browser)
+    let d = new Date(datetime.replace(" ", "T"));
 
-        let tgl  = d.getDate().toString().padStart(2, '0');
-        let bln  = (d.getMonth() + 1).toString().padStart(2, '0');
-        let thn  = d.getFullYear();
+    // Tambahkan 7 jam
+    d.setHours(d.getHours() + 7);
 
-        let jam  = d.getHours().toString().padStart(2, '0');
-        let menit = d.getMinutes().toString().padStart(2, '0');
+    let tgl = d.getDate().toString().padStart(2, "0");
+    let bln = (d.getMonth() + 1).toString().padStart(2, "0");
+    let thn = d.getFullYear();
 
-        return `${tgl}-${bln}-${thn} ${jam}:${menit}`;
-    }
+    let jam = d.getHours().toString().padStart(2, "0");
+    let menit = d.getMinutes().toString().padStart(2, "0");
+
+    return `${tgl}-${bln}-${thn} ${jam}:${menit}`;
+}
+
 
     // 🔍 FILTER + RENDER TABEL
     function renderTable() {
@@ -156,6 +161,7 @@
                     <th>Nama</th>
                     <th>NIP</th>
                     <th>Satker</th>
+                    <th>Waktu Registrasi</th>
                 </tr>
             </thead>
             <tbody>
@@ -173,11 +179,10 @@
                 <td>${item.nama}</td>
                 <td>${item.nip}</td>
                 <td>${item.satker}</td>
+                <td>${ formatWaktuIndonesia(item.time_registrasi) }</td>
             </tr>
             `;
         });
-        // <th>Waktu Registrasi</th>
-        // <td>${ formatWaktuIndonesia(item.time_registrasi) }</td>
 
         html += `</tbody></table>`;
 
