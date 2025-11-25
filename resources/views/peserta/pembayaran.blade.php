@@ -258,14 +258,14 @@
                     },
                     success: function(res) {
                         let status_kamar = res.status_kamar += " ";
-                        status_kamar += (res.status_kamar == 'Single') ? '(Rp. 699.000)' :
-                            '(Rp. 930.000)';
+                        status_kamar += (res.status_kamar == 'Single') ? '(Rp. 930.000)' :
+                            '(Rp. 699.000)';
                         $('#absensi_id').val(res.id);
                         $("#nama").val(res.nama);
                         $("#nip").val(res.nip);
                         $("#status_kamar").val(status_kamar);
                         $("#harga_permalam").val((res.status_kamar == 'Single') ?
-                            '(Rp. 699.000)' : '(Rp. 930.000)')
+                            '(Rp. 930.000)' : '(Rp. 699.000)')
 
                         $('#modalAbsensi').modal('show');
                     },

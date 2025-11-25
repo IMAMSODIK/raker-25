@@ -289,7 +289,7 @@
 
                             <div class="col-md-6">
                                 <label>Foto</label>
-                                <input type="file" name="foto" class="form-control">
+                                <input type="file" name="edit_foto" class="form-control">
                             </div>
 
                         </div>
