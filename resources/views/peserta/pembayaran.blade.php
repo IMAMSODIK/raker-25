@@ -107,14 +107,13 @@
                                             </td>
                                             <td class="text-center align-middle">
                                                 @if ($item->bukti_bayar)
-                                                    <img width="70%" 
+                                                    <img width="70%"
                                                         src="{{ asset('storage') . '/' . $item->bukti_bayar }}"
-                                                        class="img-fluid rounded bukti-bayar-preview" 
+                                                        class="img-fluid rounded bukti-bayar-preview"
                                                         data-img="{{ asset('storage') . '/' . $item->bukti_bayar }}"
-                                                        style="cursor: pointer;"
-                                                        alt="bukti bayar">
+                                                        style="cursor: pointer;" alt="bukti bayar">
                                                 @else
-                                                    {{$item->metode_bayar}}
+                                                    {{ $item->metode_bayar }}
                                                 @endif
                                             </td>
 
@@ -248,37 +247,39 @@
             })
 
             $(document).on("click", ".edit", function() {
-    let id = $(this).data('id');
+                let id = $(this).data('id');
 
-    $.ajax({
-        url: "/pembayaran/get",
-        type: "GET",
-        data: { id: id },
-        success: function(res) {
+                $.ajax({
+                    url: "/pembayaran/get",
+                    type: "GET",
+                    data: {
+                        id: id
+                    },
+                    success: function(res) {
 
-            let statusAsli = res.status_kamar; // simpan dulu sebelum diubah
+                        let statusAsli = res.status_kamar; // simpan dulu sebelum diubah
 
-            let status_kamar = statusAsli + " ";
-            status_kamar += (statusAsli === 'Single')
-                ? '(Rp. 930.000)'
-                : '(Rp. 699.000)';
+                        let status_kamar = statusAsli + " ";
+                        status_kamar += (statusAsli === 'Single') ?
+                            '(Rp. 930.000)' :
+                            '(Rp. 699.000)';
 
-            $('#absensi_id').val(res.id);
-            $("#nama").val(res.nama);
-            $("#nip").val(res.nip);
-            $("#status_kamar").val(status_kamar);
+                        $('#absensi_id').val(res.id);
+                        $("#nama").val(res.nama);
+                        $("#nip").val(res.nip);
+                        $("#status_kamar").val(status_kamar);
 
-            $("#harga_permalam").val(
-                (statusAsli === 'Single') ? 'Rp. 930.000' : 'Rp. 699.000'
-            );
+                        $("#harga_permalam").val(
+                            (statusAsli === 'Single') ? 'Rp. 930.000' : 'Rp. 699.000'
+                        );
 
-            $('#modalAbsensi').modal('show');
-        },
-        error: function() {
-            Swal.fire("Error", "Gagal mengambil data", "error");
-        }
-    });
-});
+                        $('#modalAbsensi').modal('show');
+                    },
+                    error: function() {
+                        Swal.fire("Error", "Gagal mengambil data", "error");
+                    }
+                });
+            });
 
 
             // Simpan
@@ -314,11 +315,11 @@
                     processData: false,
                     contentType: false,
                     success: function(res) {
-                        if(res.status){
+                        if (res.status) {
                             Swal.fire("Berhasil", res.message, "success").then(() => location
                                 .reload());
-                        }else{
-                            Swal.fire("Error", "Peserta belum melakukan registrasi", "error");    
+                        } else {
+                            Swal.fire("Error", "Peserta belum melakukan registrasi", "error");
                         }
                     },
                     error: function() {
@@ -331,7 +332,7 @@
 
         });
 
-        $(document).on('click', '.bukti-bayar-preview', function () {
+        $(document).on('click', '.bukti-bayar-preview', function() {
             let img = $(this).data('img');
 
             $("#previewBuktiBayarImg").attr('src', img);
@@ -339,6 +340,5 @@
             let modal = new bootstrap.Modal(document.getElementById('previewBuktiBayarModal'));
             modal.show();
         });
-
     </script>
 @endsection

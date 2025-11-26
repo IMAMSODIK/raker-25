@@ -28,3 +28,8 @@ flow : registrasi, kit, pembayaran
 
 buat satu halaman password sebelum petugas memasukkan nama pemilik tiket
 nama zip adalah nama designer
+
+
+
+flow
+generate allaccess, simpan ke db, tipe allaccess
