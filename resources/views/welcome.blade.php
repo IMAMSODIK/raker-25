@@ -563,6 +563,9 @@
 
                         @foreach ($peserta as $p)
                             {{-- Hanya tampilkan yang sudah registrasi --}}
+                            @if (is_null($p->time_registrasi))
+                                @continue
+                            @endif
 
                             <tr>
                                 <td class="text-center align-middle">{{ $index++ }}</td>
@@ -572,7 +575,7 @@
 
                                         <!-- Foto -->
                                         <div class="col-4 text-center">
-                                            <img width="50%" src="{{ asset('storage') . '/' . $item->foto }}"
+                                            <img width="50%" src="{{ asset('storage') . '/' . $p->foto }}"
                                                 class="img-fluid rounded" alt="Foto">
                                         </div>
 
@@ -580,10 +583,10 @@
                                         <div class="col-8">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <strong>{{ $item->nama }}</strong>
+                                                    <strong>{{ $p->nama }}</strong>
                                                 </div>
                                                 <div class="col-12">
-                                                    <small>NIP: {{ $item->nip }}</small>
+                                                    <small>NIP: {{ $p->nip }}</small>
                                                 </div>
                                             </div>
                                         </div>
