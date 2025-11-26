@@ -55,20 +55,20 @@
                     placeholder="Cari nama / NIP / Satker...">
             </div>
 
-            <div class="col-md-3 mb-2">
+            <div class="col-md-3 mb-2" style="display: none">
                 <div class="card shadow-sm text-center">
                     <div class="card-body">
                         <h6 class="text-muted">Total Peserta</h6>
-                        <h4 id="totalPeserta">96</h4>
+                        <h4 id="totalPeserta">0</h4>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3 mb-2">
+            <div class="col-md-3 mb-2" style="display: none">
                 <div class="card shadow-sm text-center">
                     <div class="card-body">
                         <h6 class="text-muted">Total Absensi 2</h6>
-                        <h4 id="totalPeserta">0</h4>
+                        <h4 id="totalAbsensi">0</h4>
                     </div>
                 </div>
             </div>
