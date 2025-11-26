@@ -563,9 +563,6 @@
 
                         @foreach ($peserta as $p)
                             {{-- Hanya tampilkan yang sudah registrasi --}}
-                            @if (is_null($p->time_registrasi))
-                                @continue
-                            @endif
 
                             <tr>
                                 <td class="text-center align-middle">{{ $index++ }}</td>
