@@ -17,23 +17,18 @@
 
         table.table tr.registered td {
             background-color: #ccffd0 !important;
+            /* hijau */
         }
 
         table.table tr.not-registered td {
             background-color: #ffe1e1 !important;
-        }
-
-        table.table.table-striped>tbody>tr.registered:nth-of-type(odd)>* {
-            background-color: #c1f7c6 !important;
-        }
-
-        table.table.table-striped>tbody>tr.not-registered:nth-of-type(odd)>* {
-            background-color: #ffd4d4 !important;
+            /* merah */
         }
 
         .table-wrapper {
             background: white;
             border-radius: 12px;
+            padding: 20px;
             box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
         }
 
@@ -154,7 +149,7 @@
         `;
 
             data.forEach((item, i) => {
-                let rowClass = item.time_absensi1 ? 'bg-success' : 'bg-danger';
+                let rowClass = item.time_absensi1 ? 'registered' : 'not-registered';
 
                 html += `
             <tr class="${rowClass}">
