@@ -154,7 +154,7 @@
         `;
 
             data.forEach((item, i) => {
-                let rowClass = item.time_absensi1 ? 'registered' : 'not-registered';
+                let rowClass = item.time_absensi1 ? 'bg-success' : 'bg-danger';
 
                 html += `
             <tr class="${rowClass}">
