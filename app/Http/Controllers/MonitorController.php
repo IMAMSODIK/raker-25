@@ -20,7 +20,7 @@ class MonitorController extends Controller
     public function absensi(Request $r){
         $data = [
             'pageTitle' => 'Absensi',
-            'data' => Peserta::orderBy('time_absensi2', 'DESC')->get(),
+            'data' => Peserta::orderBy('time_absensi3', 'DESC')->get(),
         ];
 
         return view('monitor.absensi', $data);

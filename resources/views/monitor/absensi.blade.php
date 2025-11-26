@@ -101,7 +101,7 @@
 
                     // Hitung statistik
                     $("#totalPeserta").text(res.length);
-                    $("#totalAbsensi").text(res.filter(i => i.time_absensi2 !== null).length);
+                    $("#totalAbsensi").text(res.filter(i => i.time_absensi3 !== null).length);
 
                     renderTable(res);
                 },
@@ -149,7 +149,7 @@
         `;
 
             data.forEach((item, i) => {
-                let rowClass = item.time_absensi2 ? 'registered' : 'not-registered';
+                let rowClass = item.time_absensi3 ? 'registered' : 'not-registered';
 
                 html += `
             <tr class="${rowClass}">
@@ -157,7 +157,7 @@
                 <td>${item.nama}</td>
                 <td>${item.nip}</td>
                 <td>${item.satker}</td>
-                <td>${ formatWaktuIndonesia(item.time_absensi2) ?? '-'}</td>
+                <td>${ formatWaktuIndonesia(item.time_absensi3) ?? '-'}</td>
             </tr>
             `;
             });
