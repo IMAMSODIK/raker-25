@@ -27,12 +27,6 @@
                 <th colspan="3">Absensi</th>
             </tr>
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
                 <th>26</th>
                 <th>27</th>
                 <th>28</th>

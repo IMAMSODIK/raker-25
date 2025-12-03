@@ -136,7 +136,7 @@ class KitController extends Controller
 
         $pdf = PDF::loadView('export.absensi', [
             'pesertas' => $pesertas,
-        ])->setPaper('a4', 'landscape'); // ⬅ landscape
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->stream('daftar-absensi-peserta.pdf');
     }
