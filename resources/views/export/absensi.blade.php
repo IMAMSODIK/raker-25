@@ -24,6 +24,7 @@
                 <th rowspan="2">Pangkat</th>
                 <th rowspan="2">Jabatan</th>
                 <th rowspan="2">Satker</th>
+                <th rowspan="2">Registrasi</th>
                 <th colspan="3">Absensi</th>
             </tr>
             <tr>
@@ -41,6 +42,14 @@
                     <td>{{ $p->pangkat }}</td>
                     <td>{{ $p->jabatan }}</td>
                     <td>{{ $p->satker }}</td>
+
+                    <td>
+                        @if($p->time_registrasi)
+                            Sudah Registrasi
+                        @else
+                            Belum Registrasi
+                        @endif
+                    </td>
 
                     <td>
                         @if($p->time_absensi1)
