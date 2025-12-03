@@ -40,7 +40,7 @@
 
                     <td>
                         @if($p->foto)
-                            <img src="{{ public_path('uploads/foto/' . $p->foto) }}" class="foto">
+                            <img src="{{ public_path('storage/uploads/foto_peserta/' . $p->foto) }}" class="foto">
                         @else
                             -
                         @endif
