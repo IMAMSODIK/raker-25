@@ -48,7 +48,7 @@
 
                     <td>
                         @if($p->foto)
-                            <img src="{{ public_path($p->ttd) }}" class="Tanda tangan">
+                            <img src="{{ public_path($p->ttd) }}" width="200px" class="Tanda tangan">
                         @else
                             -
                         @endif
