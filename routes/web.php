@@ -115,6 +115,9 @@ Route::middleware(['auth'])->group(function () {
         // return \App\Models\Peserta::select('nama', 'nip', 'satker', 'time_absensi2')->where('time_absensi2', null)->orderBy('time_absensi2', 'DESC')->get();
     })->name('monitor.absensi.data');
 
+    // routes/web.php
+    Route::get('/export-kit', [App\Http\Controllers\KitController::class, 'exportPdf']);
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
