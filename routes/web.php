@@ -117,6 +117,7 @@ Route::middleware(['auth'])->group(function () {
 
     // routes/web.php
     Route::get('/export-kit', [App\Http\Controllers\KitController::class, 'exportPdf']);
+    Route::get('/export-registrasi', [App\Http\Controllers\KitController::class, 'exportPdfRegistrasi']);
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

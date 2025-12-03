@@ -118,4 +118,15 @@ class KitController extends Controller
 
         return $pdf->stream('daftar-penerimaan-kit.pdf');
     }
+
+    public function exportPdfRegistrasi()
+    {
+        $pesertas = Peserta::all();
+
+        $pdf = PDF::loadView('export.registrasi', [
+            'pesertas' => $pesertas,
+        ])->setPaper('a4', 'landscape'); // ⬅ landscape
+
+        return $pdf->stream('daftar-registrasi-peserta.pdf');
+    }
 }
