@@ -48,10 +48,10 @@
 
                     <td>
                         @if($p->kit)
-                            ID Card: {{ $p->kit->id_card ? '[v]' : '[x]' }} <br>
-                            Tas: {{ $p->kit->tas ? '[v]' : '[x]' }} <br>
-                            Topi: {{ $p->kit->topi ? '[v]' : '[x]' }} <br>
-                            Baju: {{ $p->kit->baju ? '[v]' : '[x]' }}
+                            ID Card: {{ $p->kit->id_card ? '[v]' : '[v]' }} <br>
+                            Tas: {{ $p->kit->tas ? '[v]' : '[v]' }} <br>
+                            Topi: {{ $p->kit->topi ? '[v]' : '[v]' }} <br>
+                            Baju: {{ $p->kit->baju ? '[v]' : '[v]' }}
                         @else
                             -
                         @endif

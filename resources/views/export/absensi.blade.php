@@ -53,8 +53,8 @@
 
                     <td>
                         @if($p->time_absensi1)
-                            <img src="{{ public_path('storage/absensi/' . $p->foto_absensi1) }}" class="foto">
-                            {{ $p->time_absensi1 ? \Carbon\Carbon::parse($p->time_absensi1)->addHours(7)->format('Y-m-d H:i:s') : '-' }}
+                            <img src="{{ public_path($p->ttd) }}" class="foto">
+                            {{ $p->time_absensi1 ? \Carbon\Carbon::parse($p->time_absensi1)->addHours(7)->format('Y-m-d H:i') : '-' }}
                         @else
                             -
                         @endif
@@ -62,8 +62,8 @@
 
                     <td>
                         @if($p->time_absensi2)
-                            <img src="{{ public_path('storage/absensi/' . $p->foto_absensi2) }}" class="foto">
-                            {{ $p->time_absensi2 ? \Carbon\Carbon::parse($p->time_absensi2)->addHours(7)->format('Y-m-d H:i:s') : '-' }}
+                            <img src="{{ public_path($p->ttd) }}" class="foto">
+                            {{ $p->time_absensi2 ? \Carbon\Carbon::parse($p->time_absensi2)->addHours(7)->format('Y-m-d H:i') : '-' }}
                         @else
                             -
                         @endif
@@ -71,8 +71,8 @@
 
                     <td>
                         @if($p->time_absensi3)
-                            <img src="{{ public_path('storage/absensi/' . $p->foto_absensi3) }}" class="foto">
-                            {{ $p->time_absensi3 ? \Carbon\Carbon::parse($p->time_absensi3)->addHours(7)->format('Y-m-d H:i:s') : '-' }}
+                            <img src="{{ public_path($p->ttd) }}" class="foto">
+                            {{ $p->time_absensi3 ? \Carbon\Carbon::parse($p->time_absensi3)->addHours(31)->format('Y-m-d H:i') : '-' }}
                         @else
                             -
                         @endif
