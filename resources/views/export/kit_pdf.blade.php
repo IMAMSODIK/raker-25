@@ -53,7 +53,10 @@
                             Topi: {{ $p->kit->topi ? '[v]' : '[v]' }} <br>
                             Baju: {{ $p->kit->baju ? '[v]' : '[v]' }}
                         @else
-                            -
+                            ID Card: [v]<br>
+                            Tas: [v]<br>
+                            Topi: [v]<br>
+                            Baju: [v]
                         @endif
                     </td>
                 </tr>
