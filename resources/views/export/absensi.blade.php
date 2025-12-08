@@ -25,7 +25,7 @@
                 <th rowspan="2">Jabatan</th>
                 <th rowspan="2">Satker</th>
                 <th rowspan="2">Registrasi</th>
-                <th colspan="3">Absensi</th>
+                <th colspan="4">Absensi</th>
             </tr>
             <tr>
                 <th>25</th>
@@ -55,7 +55,7 @@
                     <td>
                         @if($p->time_absensi1)
                             <img src="{{ public_path($p->ttd) }}" class="foto">
-                            {{ $p->time_absensi1 ? \Carbon\Carbon::parse($p->time_absensi1)->addHours(7)->format('Y-m-d H:i') : '-' }}
+                            {{ $p->time_absensi1 ? \Carbon\Carbon::parse($p->time_absensi1)->format('Y-m-d H:i') : '-' }}
                         @else
                             -
                         @endif
