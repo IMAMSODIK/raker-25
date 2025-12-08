@@ -28,6 +28,7 @@
                 <th colspan="3">Absensi</th>
             </tr>
             <tr>
+                <th>25</th>
                 <th>26</th>
                 <th>27</th>
                 <th>28</th>
@@ -73,6 +74,15 @@
                         @if($p->time_absensi3)
                             <img src="{{ public_path($p->ttd) }}" class="foto">
                             {{ $p->time_absensi3 ? \Carbon\Carbon::parse($p->time_absensi3)->addHours(31)->format('Y-m-d H:i') : '-' }}
+                        @else
+                            -
+                        @endif
+                    </td>
+
+                    <td>
+                        @if($p->time_absensi4)
+                            <img src="{{ public_path($p->ttd) }}" class="foto">
+                            {{ $p->time_absensi4 ? \Carbon\Carbon::parse($p->time_absensi4)->addHours(31)->format('Y-m-d H:i') : '-' }}
                         @else
                             -
                         @endif
