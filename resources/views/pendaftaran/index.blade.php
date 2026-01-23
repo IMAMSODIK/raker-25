@@ -166,7 +166,7 @@
 
         <!-- 🔵 Flayer Paling Atas -->
         <div class="flayer-section">
-            <img src="{{ asset('own_assets/images/flayer.jpeg') }}" alt="Flayer Acara" class="flayer-image">
+            <img src="{{ asset('own_assets/images/banner.png') }}" alt="Flayer Acara" class="flayer-image">
         </div>
 
         <div class="form-header">

@@ -340,6 +340,45 @@
             }
         }
     </style>
+
+    <style>
+        .hero-text {
+            text-align: center;
+            /* Tengah */
+            margin-top: 40px;
+        }
+
+        .hero-text .hero-subtitle {
+            margin: 5px 0;
+            font-family: 'Poppins', sans-serif;
+            /* Font modern */
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #e9e9e9;
+            /* Warna gelap lembut */
+            transition: all 0.3s ease;
+        }
+
+        .hero-text .hero-subtitle.location {
+            font-size: 1.5rem;
+            /* Lebih besar untuk lokasi */
+            color: #ffffff;
+            /* Biru tua elegan */
+        }
+
+        .hero-text .hero-subtitle.date {
+            font-size: 1.2rem;
+            color: #d2d2d2;
+            /* Abu lembut */
+            font-style: italic;
+        }
+
+        /* Tambahkan efek hover (opsional) */
+        .hero-text .hero-subtitle:hover {
+            transform: translateY(-2px);
+            color: #05e047;
+        }
+    </style>
 </head>
 
 <body>
@@ -373,7 +412,7 @@
                                 <a class="nav-link" href="#">Kontak</a>
                             </li> --}}
                         </ul>
-                        <a href="/pendaftaran-uinsu" class="btn btn-custom ms-lg-3">UINSU</a>
+                        <a href="/pendaftaran-uinsu" class="btn btn-custom ms-lg-3">Pendaftaran UINSU</a>
                         <a href="/pendaftaran" class="btn btn-custom ms-lg-3">Pendaftaran</a>
                     </div>
                 </div>
@@ -386,15 +425,21 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content">
-                    <h1 class="hero-title">KONSINYERING PENYUSUNAN JUKNIS  BOPTN KEMENTRIAN AGAMA RI</h1>
-                    <p class="hero-subtitle">HOTEL POLONIA MEDAN, 24 - 27 NOVEMBER 2025</p>
+                    <h1 class="hero-title">Forum Rektor PTKIN Kementerian Agama RI Tahun 2026</h1>
+                    <p class="hero-subtitle">Program Strategis PTKIN dan Penerimaan Mahasiswa Baru (PMB) PTKIN
+                        kementerian Agama RI Tahun 2026</p>
+                    <div class="hero-text">
+                        <p class="hero-subtitle location"><i class="fas fa-map-marker-alt"></i> Grand City Hall Medan</p>
+                        <p class="hero-subtitle date"><i class="fas fa-calendar-alt"></i> 30 Januari 2026</p>
+                    </div>
+
                     <div class="d-flex flex-wrap">
-                        <a href="/registrasi" class="btn hero-btn">Registrasi</a>
-                        <a href="/absensi" class="btn hero-btn hero-btn-outline">Absensi</a>
+                        {{-- <a href="/registrasi" class="btn hero-btn">Registrasi</a>
+                        <a href="/absensi" class="btn hero-btn hero-btn-outline">Absensi</a> --}}
                     </div>
                 </div>
                 <div class="col-lg-6 hero-image-container">
-                    <img src="{{ asset('own_assets/images/flayer.jpeg') }}" alt="Analisis Data" class="hero-image">
+                    <img src="{{ asset('own_assets/images/banner.png') }}" alt="Analisis Data" class="hero-image">
                 </div>
             </div>
         </div>
